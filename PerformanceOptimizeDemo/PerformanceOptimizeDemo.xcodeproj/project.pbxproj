@@ -14,6 +14,7 @@
 		93B5E4C22258B07D0010F581 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93B5E4C02258B07D0010F581 /* LaunchScreen.storyboard */; };
 		93B5E4C52258B07D0010F581 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B5E4C42258B07D0010F581 /* main.m */; };
 		93B5E4CC2258B1310010F581 /* gir1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 93B5E4CB2258B1310010F581 /* gir1.jpg */; };
+		93B5E4CE2258DDA00010F581 /* address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 93B5E4CD2258DDA00010F581 /* address.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		93B5E4C32258B07D0010F581 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		93B5E4C42258B07D0010F581 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		93B5E4CB2258B1310010F581 /* gir1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = gir1.jpg; sourceTree = "<group>"; };
+		93B5E4CD2258DDA00010F581 /* address.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = address.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 				93B5E4C32258B07D0010F581 /* Info.plist */,
 				93B5E4C42258B07D0010F581 /* main.m */,
 				93B5E4CB2258B1310010F581 /* gir1.jpg */,
+				93B5E4CD2258DDA00010F581 /* address.plist */,
 			);
 			path = PerformanceOptimizeDemo;
 			sourceTree = "<group>";
@@ -132,6 +135,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				93B5E4C22258B07D0010F581 /* LaunchScreen.storyboard in Resources */,
+				93B5E4CE2258DDA00010F581 /* address.plist in Resources */,
 				93B5E4BF2258B07D0010F581 /* Assets.xcassets in Resources */,
 				93B5E4CC2258B1310010F581 /* gir1.jpg in Resources */,
 				93B5E4BD2258B07C0010F581 /* Main.storyboard in Resources */,
