@@ -9,6 +9,7 @@
 #import "HomeViewController.h"
 #import "ViewController.h"
 #import "NeedLoadViewController.h"
+#import "FPSViewer.h"
 
 @interface HomeViewController ()
 /** debug */
@@ -25,6 +26,10 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"首页";
     [self drawUI];
+    
+    FPSViewer *fpsView = [[FPSViewer alloc] initWithFrame:CGRectMake(0, 0, 200, 44)];
+    fpsView.center = CGPointMake(kScreenWidth * 0.5, 40);
+    [[UIApplication sharedApplication].keyWindow addSubview:fpsView];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -63,20 +68,20 @@
     }];
     
     // 断点测试
-    UILabel *debugLbe = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 44)];
-    debugLbe.textColor = [UIColor blackColor];
-    debugLbe.text = @"移除 Debug调试测试";
-    debugLbe.textAlignment = NSTextAlignmentCenter;
-    debugLbe.backgroundColor = [UIColor orangeColor];
-    [debugLbe onTap:self action:@selector(tapDebugLbe)];
-    [self.view addSubview:debugLbe];
-    self.debugLbe = debugLbe;
-
-    [debugLbe mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo(debugLbe.size);
-        make.top.equalTo(needLoadLbe.mas_bottom).offset(50);
-        make.centerX.equalTo(self.view);
-    }];
+//    UILabel *debugLbe = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 44)];
+//    debugLbe.textColor = [UIColor blackColor];
+//    debugLbe.text = @"移除 Debug调试测试";
+//    debugLbe.textAlignment = NSTextAlignmentCenter;
+//    debugLbe.backgroundColor = [UIColor orangeColor];
+//    [debugLbe onTap:self action:@selector(tapDebugLbe)];
+//    [self.view addSubview:debugLbe];
+//    self.debugLbe = debugLbe;
+//
+//    [debugLbe mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.size.mas_equalTo(debugLbe.size);
+//        make.top.equalTo(needLoadLbe.mas_bottom).offset(50);
+//        make.centerX.equalTo(self.view);
+//    }];
 }
 
 - (void)tapNormalLbe {

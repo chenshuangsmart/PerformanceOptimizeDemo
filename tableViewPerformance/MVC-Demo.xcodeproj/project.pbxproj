@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4023F3472264118E0001398C /* FPSViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4023F3462264118E0001398C /* FPSViewer.m */; };
 		40CD0A81225EC60A0089EC2F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 40CD0A80225EC60A0089EC2F /* AppDelegate.m */; };
 		8DD84B73E6D4165FAB6CB543 /* libPods-MVC-Demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 48CC69F2B3B3CDEDEC21CBAB /* libPods-MVC-Demo.a */; };
 		9323EC5E2260D33800247AD7 /* UIScrollView+SVInfiniteScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = 9323EC5A2260D33800247AD7 /* UIScrollView+SVInfiniteScrolling.m */; };
@@ -31,6 +32,8 @@
 
 /* Begin PBXFileReference section */
 		1FD5C7AB170C4756B3B5A0F6 /* Pods-MVC-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVC-Demo.debug.xcconfig"; path = "Target Support Files/Pods-MVC-Demo/Pods-MVC-Demo.debug.xcconfig"; sourceTree = "<group>"; };
+		4023F3452264118E0001398C /* FPSViewer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FPSViewer.h; sourceTree = "<group>"; };
+		4023F3462264118E0001398C /* FPSViewer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FPSViewer.m; sourceTree = "<group>"; };
 		40CD0A7C225EC60A0089EC2F /* MVC-Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MVC-Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		40CD0A7F225EC60A0089EC2F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		40CD0A80225EC60A0089EC2F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -145,9 +148,9 @@
 		93A25CE722632C2400C9C389 /* Handler */ = {
 			isa = PBXGroup;
 			children = (
-				93A25CE822632C2400C9C389 /* FPSHandler.h */,
-				93A25CE922632C2400C9C389 /* AlertUtils.m */,
 				93A25CEA22632C2400C9C389 /* AlertUtils.h */,
+				93A25CE922632C2400C9C389 /* AlertUtils.m */,
+				93A25CE822632C2400C9C389 /* FPSHandler.h */,
 				93A25CEB22632C2400C9C389 /* FPSHandler.m */,
 			);
 			path = Handler;
@@ -191,6 +194,8 @@
 				93A25CFE22632C3200C9C389 /* NewsActionView.m */,
 				93A25CFD22632C3200C9C389 /* NewsCell.h */,
 				93A25CFC22632C3200C9C389 /* NewsCell.m */,
+				4023F3452264118E0001398C /* FPSViewer.h */,
+				4023F3462264118E0001398C /* FPSViewer.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -332,6 +337,7 @@
 				9323EC5E2260D33800247AD7 /* UIScrollView+SVInfiniteScrolling.m in Sources */,
 				93A25D1222632F8C00C9C389 /* NeedLoadViewController.m in Sources */,
 				9323EC5F2260D33800247AD7 /* UIScrollView+SVPullToRefresh.m in Sources */,
+				4023F3472264118E0001398C /* FPSViewer.m in Sources */,
 				93A25CF422632C2400C9C389 /* UIView+Extension.m in Sources */,
 				93A25D0B22632C9800C9C389 /* main.m in Sources */,
 				40CD0A81225EC60A0089EC2F /* AppDelegate.m in Sources */,

@@ -9,7 +9,6 @@
 #import "ViewController.h"
 #import "NewsCell.h"
 #import "NewsModel.h"
-#import "FPSHandler.h"
 
 /**
  关于 MVC 演示的 Demo
@@ -51,10 +50,6 @@ static NSString *cellId = @"NewsCellId";
 
 - (void)setupData {
     [self.dataSource addObjectsFromArray:[self getRandomData]];
-    
-    [[FPSHandler shareInstance] startMonitor:^(float fps) {
-        self.title = [NSString stringWithFormat:@"FPS:%0.0f",fps];
-    }];
 }
 
 - (void)drawUI {
@@ -99,7 +94,8 @@ static NSString *cellId = @"NewsCellId";
 
 - (NSArray *)getRandomData {
     NSMutableArray *models = [NSMutableArray array];
-    for (int i = 0; i < 20; i++) {
+    int number = arc4random_uniform(30);
+    for (int i = 0; i < 20 + number; i++) {
         NewsModel *model = [[NewsModel alloc] init];
         model.icon = [self.icons objectAtIndex:arc4random_uniform(10)];
         model.title = [self.titles objectAtIndex:arc4random_uniform(10)];
@@ -283,10 +279,6 @@ static NSString *cellId = @"NewsCellId";
         [lbe mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.mas_equalTo(self.headerView.mas_centerX);
             make.bottom.equalTo(self.headerView.mas_bottom).offset(-10);
-        }];
-        
-        [[FPSHandler shareInstance] startMonitor:^(float fps) {
-            lbe.text = [NSString stringWithFormat:@"FPS:%0.0f",fps];
         }];
     }
     return _headerView;

@@ -9,7 +9,6 @@
 #import "NeedLoadViewController.h"
 #import "NewsCell.h"
 #import "NewsModel.h"
-#import "FPSHandler.h"
 
 @interface NeedLoadViewController ()<UITableViewDataSource, UITableViewDelegate, NewsCellDelegate>
 /** tableView */
@@ -45,11 +44,7 @@ static NSString *cellId = @"NewsCellId";
 }
 
 - (void)setupData {
-    [self.dataSource addObjectsFromArray:[self getRandomData]];
-    
-    [[FPSHandler shareInstance] startMonitor:^(float fps) {
-        self.title = [NSString stringWithFormat:@"FPS:%0.0f",fps];
-    }];
+    [self.dataSource addObjectsFromArray:[self getRandomData]];    
 }
 
 - (void)drawUI {
@@ -94,7 +89,8 @@ static NSString *cellId = @"NewsCellId";
 
 - (NSArray *)getRandomData {
     NSMutableArray *models = [NSMutableArray array];
-    for (int i = 0; i < 20; i++) {
+    int number = arc4random_uniform(30);
+    for (int i = 0; i < 20 + number; i++) {
         NewsModel *model = [[NewsModel alloc] init];
         model.icon = [self.icons objectAtIndex:arc4random_uniform(10)];
         model.title = [self.titles objectAtIndex:arc4random_uniform(10)];

@@ -23,4 +23,7 @@
 //fprintf(stderr, "-------\n"); \
 //} while (0)
 
+#define kScreenWidth [UIScreen mainScreen].bounds.size.width
+#define kScreenHeight [UIScreen mainScreen].bounds.size.height
+
 #endif /* PrefixHeader_pch */
