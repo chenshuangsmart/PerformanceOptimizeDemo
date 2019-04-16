@@ -10,6 +10,7 @@
 #import "ViewController.h"
 #import "NeedLoadViewController.h"
 #import "FPSViewer.h"
+#import "CalculateCellHeightViewController.h"
 
 @interface HomeViewController ()
 /** debug */
@@ -94,7 +95,8 @@
 }
 
 - (void)tapCalculCellHeightLbe {
-    
+    CalculateCellHeightViewController *vc = [[CalculateCellHeightViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end

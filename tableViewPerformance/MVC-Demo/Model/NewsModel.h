@@ -34,6 +34,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, assign)NSUInteger likeNum;
 /** if like */
 @property(nonatomic, assign,getter=isLike)BOOL like;
+/** rowHeight */
+@property(nonatomic,assign)CGFloat rowHeight;
 
 /// 添加关注
 - (void)addAttention:(void(^)(NSDictionary *json))callback;

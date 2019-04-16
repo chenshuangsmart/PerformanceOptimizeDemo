@@ -29,6 +29,8 @@
 		93A25D0B22632C9800C9C389 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 93A25D0722632C9800C9C389 /* main.m */; };
 		93A25D0E22632CED00C9C389 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93A25D0D22632CED00C9C389 /* HomeViewController.m */; };
 		93A25D1222632F8C00C9C389 /* NeedLoadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93A25D1122632F8C00C9C389 /* NeedLoadViewController.m */; };
+		93C511BE2266264400B86678 /* CalculateNewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 93C511BD2266264400B86678 /* CalculateNewsCell.m */; };
+		93C511C122662E0000B86678 /* NewsHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 93C511C022662E0000B86678 /* NewsHandler.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,6 +76,10 @@
 		93A25D0F22632D9600C9C389 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		93A25D1022632F8C00C9C389 /* NeedLoadViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NeedLoadViewController.h; sourceTree = "<group>"; };
 		93A25D1122632F8C00C9C389 /* NeedLoadViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NeedLoadViewController.m; sourceTree = "<group>"; };
+		93C511BC2266264400B86678 /* CalculateNewsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalculateNewsCell.h; sourceTree = "<group>"; };
+		93C511BD2266264400B86678 /* CalculateNewsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalculateNewsCell.m; sourceTree = "<group>"; };
+		93C511BF22662E0000B86678 /* NewsHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsHandler.h; sourceTree = "<group>"; };
+		93C511C022662E0000B86678 /* NewsHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsHandler.m; sourceTree = "<group>"; };
 		E673E76A1A7C91A295F32972 /* Pods-MVC-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVC-Demo.release.xcconfig"; path = "Target Support Files/Pods-MVC-Demo/Pods-MVC-Demo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -155,6 +161,8 @@
 				93A25CE922632C2400C9C389 /* AlertUtils.m */,
 				93A25CE822632C2400C9C389 /* FPSHandler.h */,
 				93A25CEB22632C2400C9C389 /* FPSHandler.m */,
+				93C511BF22662E0000B86678 /* NewsHandler.h */,
+				93C511C022662E0000B86678 /* NewsHandler.m */,
 			);
 			path = Handler;
 			sourceTree = "<group>";
@@ -186,8 +194,8 @@
 		93A25CF622632C2C00C9C389 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				93A25CF722632C2C00C9C389 /* NewsModel.m */,
 				93A25CF822632C2C00C9C389 /* NewsModel.h */,
+				93A25CF722632C2C00C9C389 /* NewsModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -201,6 +209,8 @@
 				93A25CFC22632C3200C9C389 /* NewsCell.m */,
 				4023F3452264118E0001398C /* FPSViewer.h */,
 				4023F3462264118E0001398C /* FPSViewer.m */,
+				93C511BC2266264400B86678 /* CalculateNewsCell.h */,
+				93C511BD2266264400B86678 /* CalculateNewsCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -337,6 +347,7 @@
 				93A25CF522632C2400C9C389 /* ViewController.m in Sources */,
 				93A25CF322632C2400C9C389 /* FPSHandler.m in Sources */,
 				4023F34A226565200001398C /* CalculateCellHeightViewController.m in Sources */,
+				93C511C122662E0000B86678 /* NewsHandler.m in Sources */,
 				93A25CF222632C2400C9C389 /* AlertUtils.m in Sources */,
 				9323EC682260E51900247AD7 /* MBProgressHUD.m in Sources */,
 				93A25CFF22632C3200C9C389 /* NewsCell.m in Sources */,
@@ -348,6 +359,7 @@
 				93A25D0B22632C9800C9C389 /* main.m in Sources */,
 				40CD0A81225EC60A0089EC2F /* AppDelegate.m in Sources */,
 				93A25D0E22632CED00C9C389 /* HomeViewController.m in Sources */,
+				93C511BE2266264400B86678 /* CalculateNewsCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
