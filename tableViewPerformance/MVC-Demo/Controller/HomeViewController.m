@@ -68,20 +68,19 @@
     }];
     
     // 断点测试
-//    UILabel *debugLbe = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 44)];
-//    debugLbe.textColor = [UIColor blackColor];
-//    debugLbe.text = @"移除 Debug调试测试";
-//    debugLbe.textAlignment = NSTextAlignmentCenter;
-//    debugLbe.backgroundColor = [UIColor orangeColor];
-//    [debugLbe onTap:self action:@selector(tapDebugLbe)];
-//    [self.view addSubview:debugLbe];
-//    self.debugLbe = debugLbe;
-//
-//    [debugLbe mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.size.mas_equalTo(debugLbe.size);
-//        make.top.equalTo(needLoadLbe.mas_bottom).offset(50);
-//        make.centerX.equalTo(self.view);
-//    }];
+    UILabel *calculCellHeightLbe = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 44)];
+    calculCellHeightLbe.textColor = [UIColor blackColor];
+    calculCellHeightLbe.text = @"缓存 Cell 高度";
+    calculCellHeightLbe.textAlignment = NSTextAlignmentCenter;
+    calculCellHeightLbe.backgroundColor = [UIColor orangeColor];
+    [calculCellHeightLbe onTap:self action:@selector(tapCalculCellHeightLbe)];
+    [self.view addSubview:calculCellHeightLbe];
+    
+    [calculCellHeightLbe mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(calculCellHeightLbe.size);
+        make.top.equalTo(needLoadLbe.mas_bottom).offset(50);
+        make.centerX.equalTo(self.view);
+    }];
 }
 
 - (void)tapNormalLbe {
@@ -94,10 +93,7 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)tapDebugLbe {
-    NSLog(@"点击了 Debug调试测试 按钮");
-    [self.debugLbe removeFromSuperview];
-    
+- (void)tapCalculCellHeightLbe {
     
 }
 
