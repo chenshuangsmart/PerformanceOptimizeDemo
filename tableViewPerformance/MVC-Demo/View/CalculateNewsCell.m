@@ -111,7 +111,7 @@
     self.subTitleLbe.y = self.iconImgView.centerY + 2;
     
     self.contentLbe.text = model.content;
-    [self.contentLbe sizeToFit];
+    [self.contentLbe fitSizeHeight];
     
     if (model.isAttention) {
         self.attentionLbe.text = @"已关注";

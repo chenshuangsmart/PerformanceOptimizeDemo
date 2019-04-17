@@ -15,6 +15,7 @@
 #import "AlertUtils.h"
 #import "SVPullToRefresh.h"
 #import "NewsHandler.h"
+#import "UILabel+Extension.h"
 
 //#define NSLog(format, ...) do { \
 //fprintf(stderr, "<%s : %d> %s\n", \

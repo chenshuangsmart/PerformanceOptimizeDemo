@@ -160,7 +160,7 @@ static NSString *cellId = @"NewsCellId";
 
 - (CGFloat)getContentHeight:(NSString *)content {
     CGSize size = [content boundingRectWithSize:CGSizeMake(kScreenWidth - 20, MAXFLOAT)
-                                          options:NSStringDrawingUsesLineFragmentOrigin
+                                        options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading
                                        attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16 ]}
                                           context:nil].size;
     return size.height;
