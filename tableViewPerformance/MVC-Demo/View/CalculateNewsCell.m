@@ -103,12 +103,12 @@
     [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:model.icon]];
     
     self.titleLbe.text = model.title;
-    [self.titleLbe sizeToFit];
-    self.titleLbe.bottom = self.iconImgView.centerY - 2;
+//    [self.titleLbe sizeToFit];
+//    self.titleLbe.bottom = self.iconImgView.centerY - 2;
     
     self.subTitleLbe.text = model.subTitle;
-    [self.subTitleLbe sizeToFit];
-    self.subTitleLbe.y = self.iconImgView.centerY + 2;
+//    [self.subTitleLbe sizeToFit];
+//    self.subTitleLbe.y = self.iconImgView.centerY + 2;
     
     self.contentLbe.text = model.content;
     [self.contentLbe fitSizeHeight];
@@ -189,6 +189,9 @@
 - (UILabel *)titleLbe {
     if (_titleLbe == nil) {
         _titleLbe = [self getLbeWithFont:16 textColor:[UIColor blackColor]];
+        _titleLbe.size = CGSizeMake(kScreenWidth - 200, 20);
+        // 避免重复计算,宽高写死
+//        UILabel *titleLbe = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth - 200, 20)];
     }
     return _titleLbe;
 }
@@ -196,6 +199,7 @@
 - (UILabel *)subTitleLbe {
     if (_subTitleLbe == nil) {
         _subTitleLbe = [self getLbeWithFont:14 textColor:[UIColor grayColor]];
+        _subTitleLbe.size = CGSizeMake(kScreenWidth - 200, 20);
     }
     return _subTitleLbe;
 }
