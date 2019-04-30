@@ -13,6 +13,9 @@
 #import "CalculateCellHeightViewController.h"
 #import "RadiusViewController.h"
 #import "ShadowViewController.h"
+#import "MaskViewController.h"
+#import "GroupOpacityViewController.h"
+#import "EdgeAntialiasingViewController.h"
 
 @interface HomeViewController ()
 /** debug */
@@ -45,7 +48,8 @@
     normalLbe.textColor = [UIColor blackColor];
     normalLbe.text = @"约束布局实现";
     normalLbe.textAlignment = NSTextAlignmentCenter;
-    normalLbe.backgroundColor = [UIColor orangeColor];
+    normalLbe.layer.borderColor = [[UIColor grayColor] CGColor];
+    normalLbe.layer.borderWidth = 0.5;
     [normalLbe onTap:self action:@selector(tapNormalLbe)];
     [self.view addSubview:normalLbe];
     
@@ -60,7 +64,8 @@
     needLoadLbe.textColor = [UIColor blackColor];
     needLoadLbe.text = @"按需加载";
     needLoadLbe.textAlignment = NSTextAlignmentCenter;
-    needLoadLbe.backgroundColor = [UIColor orangeColor];
+    needLoadLbe.layer.borderColor = [[UIColor grayColor] CGColor];
+    needLoadLbe.layer.borderWidth = 0.5;
     [needLoadLbe onTap:self action:@selector(tapNeedLoad)];
     [self.view addSubview:needLoadLbe];
     
@@ -75,7 +80,8 @@
     cornusLbe.textColor = [UIColor blackColor];
     cornusLbe.text = @"UILabel, UITextField, UITextView圆角";
     cornusLbe.textAlignment = NSTextAlignmentCenter;
-    cornusLbe.backgroundColor = [UIColor orangeColor];
+    cornusLbe.layer.borderColor = [[UIColor grayColor] CGColor];
+    cornusLbe.layer.borderWidth = 0.5;
     [cornusLbe onTap:self action:@selector(tapCornusLbe)];
     [self.view addSubview:cornusLbe];
     
@@ -90,13 +96,62 @@
     shadowLbe.textColor = [UIColor blackColor];
     shadowLbe.text = @"shadow 阴影";
     shadowLbe.textAlignment = NSTextAlignmentCenter;
-    shadowLbe.backgroundColor = [UIColor orangeColor];
+    shadowLbe.layer.borderColor = [[UIColor grayColor] CGColor];
+    shadowLbe.layer.borderWidth = 0.5;
     [shadowLbe onTap:self action:@selector(tapShadowLbe)];
     [self.view addSubview:shadowLbe];
 
     [shadowLbe mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(shadowLbe.size);
         make.top.equalTo(cornusLbe.mas_bottom).offset(50);
+        make.centerX.equalTo(self.view);
+    }];
+    
+    // mask
+    UILabel *maskLbe = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 44)];
+    maskLbe.textColor = [UIColor blackColor];
+    maskLbe.text = @"Mask 遮罩";
+    maskLbe.textAlignment = NSTextAlignmentCenter;
+    maskLbe.layer.borderColor = [[UIColor grayColor] CGColor];
+    maskLbe.layer.borderWidth = 0.5;
+    [maskLbe onTap:self action:@selector(tapMaskLbe)];
+    [self.view addSubview:maskLbe];
+    
+    [maskLbe mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(maskLbe.size);
+        make.top.equalTo(shadowLbe.mas_bottom).offset(50);
+        make.centerX.equalTo(self.view);
+    }];
+    
+    // GroupOpacity
+    UILabel *groupOpacityLbe = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 44)];
+    groupOpacityLbe.textColor = [UIColor blackColor];
+    groupOpacityLbe.text = @"GroupOpacity";
+    groupOpacityLbe.textAlignment = NSTextAlignmentCenter;
+    groupOpacityLbe.layer.borderColor = [[UIColor grayColor] CGColor];
+    groupOpacityLbe.layer.borderWidth = 0.5;
+    [groupOpacityLbe onTap:self action:@selector(tapGroupOpacityLbe)];
+    [self.view addSubview:groupOpacityLbe];
+    
+    [groupOpacityLbe mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(groupOpacityLbe.size);
+        make.top.equalTo(maskLbe.mas_bottom).offset(50);
+        make.centerX.equalTo(self.view);
+    }];
+    
+    // EdgeAntialiasing
+    UILabel *edgeAntialiasingLbe = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 44)];
+    edgeAntialiasingLbe.textColor = [UIColor blackColor];
+    edgeAntialiasingLbe.text = @"EdgeAntialiasing";
+    edgeAntialiasingLbe.textAlignment = NSTextAlignmentCenter;
+    edgeAntialiasingLbe.layer.borderColor = [[UIColor grayColor] CGColor];
+    edgeAntialiasingLbe.layer.borderWidth = 0.5;
+    [edgeAntialiasingLbe onTap:self action:@selector(tapEdgeAntialiasingLbe)];
+    [self.view addSubview:edgeAntialiasingLbe];
+    
+    [edgeAntialiasingLbe mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(edgeAntialiasingLbe.size);
+        make.top.equalTo(groupOpacityLbe.mas_bottom).offset(50);
         make.centerX.equalTo(self.view);
     }];
 }
@@ -125,6 +180,21 @@
 
 - (void)tapShadowLbe {
     ShadowViewController *vc = [[ShadowViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)tapMaskLbe {
+    MaskViewController *vc = [[MaskViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)tapGroupOpacityLbe {
+    GroupOpacityViewController *vc = [[GroupOpacityViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)tapEdgeAntialiasingLbe {
+    EdgeAntialiasingViewController *vc = [[EdgeAntialiasingViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

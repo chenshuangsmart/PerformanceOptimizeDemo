@@ -35,6 +35,8 @@ static NSString *kNotifyModelUpdate = @"kNotifyModelUpdate";
 @property(nonatomic, strong)NewsActionView *likeActionView;
 /** divide line */
 @property(nonatomic, strong)UIView *divideLineView;
+/** mask img */
+@property(nonatomic, strong)UIImage *maskImg;
 @end
 
 @implementation NewsCell
@@ -171,19 +173,24 @@ static NSString *kNotifyModelUpdate = @"kNotifyModelUpdate";
         [model.imgs enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL *stop) {
             UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(posX, 0, kImgViewWH, kImgViewWH)];
             [imgView sd_setImageWithURL:[NSURL URLWithString:obj]];
+            
+            // 直接裁剪圆角
 //            imgView.layer.cornerRadius = 5;
 //            imgView.layer.masksToBounds = YES;
             
             // 设置阴影
-            CALayer *imageViewLayer = imgView.layer;
-            imageViewLayer.shadowColor = [[UIColor blackColor] CGColor];
-            imageViewLayer.shadowOpacity = 1.0; //此参数默认为0，即阴影不显示
-            imageViewLayer.shadowRadius = 2.0; //给阴影加上圆角，对性能无明显影响
-            imageViewLayer.shadowOffset = CGSizeMake(5, 5);
+//            CALayer *imageViewLayer = imgView.layer;
+//            imageViewLayer.shadowColor = [[UIColor blackColor] CGColor];
+//            imageViewLayer.shadowOpacity = 1.0; //此参数默认为0，即阴影不显示
+//            imageViewLayer.shadowRadius = 2.0; //给阴影加上圆角，对性能无明显影响
+//            imageViewLayer.shadowOffset = CGSizeMake(5, 5);
             
             //设定路径：与视图的边界相同
 //            UIBezierPath *path = [UIBezierPath bezierPathWithRect:imgView.bounds];
 //            imageViewLayer.shadowPath = path.CGPath;//路径默认为 nil
+            
+            // 使用遮罩来裁剪圆角
+            imgView.maskView = [[UIImageView alloc] initWithImage:self.maskImg];
 
             [self.imgListView addSubview:imgView];
             posX += (5 + kImgViewWH);
@@ -417,4 +424,10 @@ static NSString *kNotifyModelUpdate = @"kNotifyModelUpdate";
     return _divideLineView;
 }
 
+- (UIImage *)maskImg {
+    if (_maskImg == nil) {
+        _maskImg = [UIImage imageNamed:@"RoundMask"];
+    }
+    return _maskImg;
+}
 @end

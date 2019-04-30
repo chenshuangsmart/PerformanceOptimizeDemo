@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		4017776B2271439200FF0950 /* RadiusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4017776A2271439200FF0950 /* RadiusViewController.m */; };
 		401D5A7E22767F96004A29AE /* ShadowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 401D5A7D22767F96004A29AE /* ShadowViewController.m */; };
+		401F47712277D1A900A18F4D /* MaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 401F47702277D1A900A18F4D /* MaskViewController.m */; };
+		401F477A227868DA00A18F4D /* GroupOpacityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 401F4779227868DA00A18F4D /* GroupOpacityViewController.m */; };
+		401F477D227870D100A18F4D /* EdgeAntialiasingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 401F477C227870D100A18F4D /* EdgeAntialiasingViewController.m */; };
 		4023F3472264118E0001398C /* FPSViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4023F3462264118E0001398C /* FPSViewer.m */; };
 		4023F34A226565200001398C /* CalculateCellHeightViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4023F349226565200001398C /* CalculateCellHeightViewController.m */; };
 		4023F34D2266B0630001398C /* UILabel+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4023F34C2266B0630001398C /* UILabel+Extension.m */; };
@@ -42,6 +45,12 @@
 		4017776A2271439200FF0950 /* RadiusViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RadiusViewController.m; sourceTree = "<group>"; };
 		401D5A7C22767F96004A29AE /* ShadowViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShadowViewController.h; sourceTree = "<group>"; };
 		401D5A7D22767F96004A29AE /* ShadowViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShadowViewController.m; sourceTree = "<group>"; };
+		401F476F2277D1A900A18F4D /* MaskViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MaskViewController.h; sourceTree = "<group>"; };
+		401F47702277D1A900A18F4D /* MaskViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MaskViewController.m; sourceTree = "<group>"; };
+		401F4778227868DA00A18F4D /* GroupOpacityViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GroupOpacityViewController.h; sourceTree = "<group>"; };
+		401F4779227868DA00A18F4D /* GroupOpacityViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GroupOpacityViewController.m; sourceTree = "<group>"; };
+		401F477B227870D100A18F4D /* EdgeAntialiasingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EdgeAntialiasingViewController.h; sourceTree = "<group>"; };
+		401F477C227870D100A18F4D /* EdgeAntialiasingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EdgeAntialiasingViewController.m; sourceTree = "<group>"; };
 		4023F3452264118E0001398C /* FPSViewer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FPSViewer.h; sourceTree = "<group>"; };
 		4023F3462264118E0001398C /* FPSViewer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FPSViewer.m; sourceTree = "<group>"; };
 		4023F348226565200001398C /* CalculateCellHeightViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalculateCellHeightViewController.h; sourceTree = "<group>"; };
@@ -202,6 +211,12 @@
 				4017776A2271439200FF0950 /* RadiusViewController.m */,
 				401D5A7C22767F96004A29AE /* ShadowViewController.h */,
 				401D5A7D22767F96004A29AE /* ShadowViewController.m */,
+				401F476F2277D1A900A18F4D /* MaskViewController.h */,
+				401F47702277D1A900A18F4D /* MaskViewController.m */,
+				401F4778227868DA00A18F4D /* GroupOpacityViewController.h */,
+				401F4779227868DA00A18F4D /* GroupOpacityViewController.m */,
+				401F477B227870D100A18F4D /* EdgeAntialiasingViewController.h */,
+				401F477C227870D100A18F4D /* EdgeAntialiasingViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -363,11 +378,13 @@
 				93A25CF322632C2400C9C389 /* FPSHandler.m in Sources */,
 				4023F34A226565200001398C /* CalculateCellHeightViewController.m in Sources */,
 				4023F34D2266B0630001398C /* UILabel+Extension.m in Sources */,
+				401F47712277D1A900A18F4D /* MaskViewController.m in Sources */,
 				93C511C122662E0000B86678 /* NewsHandler.m in Sources */,
 				93A25CF222632C2400C9C389 /* AlertUtils.m in Sources */,
 				9323EC682260E51900247AD7 /* MBProgressHUD.m in Sources */,
 				93A25CFF22632C3200C9C389 /* NewsCell.m in Sources */,
 				9323EC5E2260D33800247AD7 /* UIScrollView+SVInfiniteScrolling.m in Sources */,
+				401F477A227868DA00A18F4D /* GroupOpacityViewController.m in Sources */,
 				93A25D1222632F8C00C9C389 /* NeedLoadViewController.m in Sources */,
 				401D5A7E22767F96004A29AE /* ShadowViewController.m in Sources */,
 				9323EC5F2260D33800247AD7 /* UIScrollView+SVPullToRefresh.m in Sources */,
@@ -377,6 +394,7 @@
 				4017776B2271439200FF0950 /* RadiusViewController.m in Sources */,
 				40CD0A81225EC60A0089EC2F /* AppDelegate.m in Sources */,
 				93A25D0E22632CED00C9C389 /* HomeViewController.m in Sources */,
+				401F477D227870D100A18F4D /* EdgeAntialiasingViewController.m in Sources */,
 				93C511BE2266264400B86678 /* CalculateNewsCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
