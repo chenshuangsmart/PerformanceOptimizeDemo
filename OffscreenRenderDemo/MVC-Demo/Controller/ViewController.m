@@ -85,7 +85,7 @@ static NSString *cellId = @"NewsCellId";
 - (NSArray *)getRandomData {
     NSMutableArray *models = [NSMutableArray array];
     int number = arc4random_uniform(30);
-    for (int i = 0; i < 20 + number; i++) {
+    for (int i = 0; i < 30 + number; i++) {
         NewsModel *model = [[NewsModel alloc] init];
         model.icon = [[NewsHandler shareInstance].icons objectAtIndex:arc4random_uniform(10)];
         model.title = [[NewsHandler shareInstance].titles objectAtIndex:arc4random_uniform(10)];

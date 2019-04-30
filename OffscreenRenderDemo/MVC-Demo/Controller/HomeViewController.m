@@ -12,6 +12,7 @@
 #import "FPSViewer.h"
 #import "CalculateCellHeightViewController.h"
 #import "RadiusViewController.h"
+#import "ShadowViewController.h"
 
 @interface HomeViewController ()
 /** debug */
@@ -84,21 +85,23 @@
         make.centerX.equalTo(self.view);
     }];
     
-    // 断点测试
-//    UILabel *calculCellHeightLbe = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 44)];
-//    calculCellHeightLbe.textColor = [UIColor blackColor];
-//    calculCellHeightLbe.text = @"缓存 Cell 高度";
-//    calculCellHeightLbe.textAlignment = NSTextAlignmentCenter;
-//    calculCellHeightLbe.backgroundColor = [UIColor orangeColor];
-//    [calculCellHeightLbe onTap:self action:@selector(tapCalculCellHeightLbe)];
-//    [self.view addSubview:calculCellHeightLbe];
-//
-//    [calculCellHeightLbe mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.size.mas_equalTo(calculCellHeightLbe.size);
-//        make.top.equalTo(needLoadLbe.mas_bottom).offset(50);
-//        make.centerX.equalTo(self.view);
-//    }];
+    // shadow
+    UILabel *shadowLbe = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 44)];
+    shadowLbe.textColor = [UIColor blackColor];
+    shadowLbe.text = @"shadow 阴影";
+    shadowLbe.textAlignment = NSTextAlignmentCenter;
+    shadowLbe.backgroundColor = [UIColor orangeColor];
+    [shadowLbe onTap:self action:@selector(tapShadowLbe)];
+    [self.view addSubview:shadowLbe];
+
+    [shadowLbe mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(shadowLbe.size);
+        make.top.equalTo(cornusLbe.mas_bottom).offset(50);
+        make.centerX.equalTo(self.view);
+    }];
 }
+
+#pragma mark - action
 
 - (void)tapNormalLbe {
     ViewController *vc = [[ViewController alloc] init];
@@ -117,6 +120,11 @@
 
 - (void)tapCornusLbe {
     RadiusViewController *vc = [[RadiusViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)tapShadowLbe {
+    ShadowViewController *vc = [[ShadowViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
