@@ -175,8 +175,8 @@ static NSString *kNotifyModelUpdate = @"kNotifyModelUpdate";
             [imgView sd_setImageWithURL:[NSURL URLWithString:obj]];
             
             // 直接裁剪圆角
-//            imgView.layer.cornerRadius = 5;
-//            imgView.layer.masksToBounds = YES;
+            imgView.layer.cornerRadius = 5;
+            imgView.layer.masksToBounds = YES;
             
             // 设置阴影
 //            CALayer *imageViewLayer = imgView.layer;
@@ -191,6 +191,10 @@ static NSString *kNotifyModelUpdate = @"kNotifyModelUpdate";
             
             // 使用遮罩来裁剪圆角
             imgView.maskView = [[UIImageView alloc] initWithImage:self.maskImg];
+            
+            // 开启shouldRasterize
+            imgView.layer.shouldRasterize = YES;
+            imgView.layer.rasterizationScale = imgView.layer.contentsScale;
 
             [self.imgListView addSubview:imgView];
             posX += (5 + kImgViewWH);
