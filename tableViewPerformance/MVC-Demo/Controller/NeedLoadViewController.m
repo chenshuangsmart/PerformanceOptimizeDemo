@@ -15,11 +15,15 @@
 @property(nonatomic, strong)UITableView *tableView;
 /** dataSource */
 @property(nonatomic, strong)NSMutableArray<NewsModel *> *dataSource;
+/** need load array */
+@property(nonatomic, strong)NSMutableArray<NSIndexPath *> *needLoadArray;
 @end
 
 static NSString *cellId = @"NewsCellId";
 
-@implementation NeedLoadViewController
+@implementation NeedLoadViewController {
+    bool _scrollToToping;   // 是否滚动到顶部
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -31,6 +35,13 @@ static NSString *cellId = @"NewsCellId";
 
 - (void)dealloc {
     NSLog(@"%s",__func__);
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    if (!_scrollToToping) {
+        [self.needLoadArray removeAllObjects];
+        [self loadContent];
+    }
 }
 
 - (void)setupData {
@@ -133,20 +144,87 @@ static NSString *cellId = @"NewsCellId";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NewsModel *model = [self.dataSource objectAtIndex:indexPath.row];
     NewsCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.model = model;
+    [self drawCell:cell withIndexPath:indexPath];
     cell.delegate = self;   // VC作为Cell视图的代理对象
     return cell;
 }
 
+// 按需绘制
+- (void)drawCell:(NewsCell *)cell withIndexPath:(NSIndexPath *)indexPath{
+    NewsModel *model = [self.dataSource objectAtIndex:indexPath.row];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    [cell clear];
+    cell.model = model;
+    // 如果当前 cell 不在需要绘制的cell 中,则直接 pass
+    if (self.needLoadArray.count > 0 && [self.needLoadArray indexOfObject:indexPath] == NSNotFound) {
+        return;
+    }
+    if (_scrollToToping) {
+        return;
+    }
+    [cell draw];
+}
+
 #pragma mark - UIScrollViewDelegate
 
-// 即将停止拖拽时
 // 按需加载 - 如果目标行与当前行相差超过指定行数，只在目标滚动范围的前后指定3行加载。
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    NSIndexPath *ip = [self.tableView indexPathForRowAtPoint:CGPointMake(0, targetContentOffset->y)];
+    NSIndexPath *cip = [[self.tableView indexPathsForVisibleRows] firstObject];
+    NSInteger skipCount = 8;
     
+    if (labs(cip.row - ip.row) > skipCount) {   // labs-返回 x 的绝对值
+        NSArray *temp = [self.tableView indexPathsForRowsInRect:CGRectMake(0, targetContentOffset->y, self.tableView.width, self.tableView.height)];
+        NSMutableArray *arrM = [NSMutableArray arrayWithArray:temp];
+        
+        if (velocity.y < 0) {
+            NSIndexPath *indexPath = [temp lastObject];
+            if (indexPath.row + 3 < self.dataSource.count) {
+                [arrM addObject:[NSIndexPath indexPathForRow:indexPath.row + 1 inSection:0]];
+                [arrM addObject:[NSIndexPath indexPathForRow:indexPath.row + 2 inSection:0]];
+                [arrM addObject:[NSIndexPath indexPathForRow:indexPath.row + 3 inSection:0]];
+            }
+        } else {
+            NSIndexPath *indexPath = [temp firstObject];
+            if (indexPath.row > 3) {
+                [arrM addObject:[NSIndexPath indexPathForRow:indexPath.row - 3 inSection:0]];
+                [arrM addObject:[NSIndexPath indexPathForRow:indexPath.row - 2 inSection:0]];
+                [arrM addObject:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
+            }
+        }
+        
+        [self.needLoadArray addObjectsFromArray:arrM];
+    }
+}
+
+- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
+    _scrollToToping = YES;
+    return YES;
+}
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+    _scrollToToping = NO;
+    [self loadContent];
+}
+
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
+    _scrollToToping = NO;
+    [self loadContent];
+}
+
+- (void)loadContent {
+    if (_scrollToToping) {
+        return;
+    }
+    if (self.tableView.indexPathsForVisibleRows.count <= 0) {
+        return;
+    }
+    if (self.tableView.visibleCells && self.tableView.visibleCells.count > 0) {
+        for (NewsCell *cell in [self.tableView.visibleCells copy]) {
+            [cell draw];
+        }
+    }
 }
 
 #pragma mark - NewsCellDelegate
@@ -278,6 +356,13 @@ static NSString *cellId = @"NewsCellId";
         _dataSource = [NSMutableArray array];
     }
     return _dataSource;
+}
+
+- (NSMutableArray<NSIndexPath *> *)needLoadArray {
+    if (_needLoadArray == nil) {
+        _needLoadArray = [NSMutableArray array];
+    }
+    return _needLoadArray;
 }
 
 @end

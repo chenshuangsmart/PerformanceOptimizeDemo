@@ -509,7 +509,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 99K9H395JW;
+				DEVELOPMENT_TEAM = 5N8NJ6B9K4;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MVC-Demo/SuportFile/PrefixHeader.pch";
 				INFOPLIST_FILE = "MVC-Demo/Info.plist";
@@ -518,9 +518,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "-";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jm.tableViewPerference;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "CS-Dev-Math";
+				PROVISIONING_PROFILE_SPECIFIER = "jm-wildcard-appid-dev";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -540,7 +540,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "-";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jm.tableViewPerference;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;

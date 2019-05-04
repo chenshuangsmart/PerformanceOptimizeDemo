@@ -39,6 +39,12 @@ NS_ASSUME_NONNULL_BEGIN
 /** delegate */
 @property(nonatomic,weak)id<NewsCellDelegate> delegate;
 
+/// 开始绘制
+- (void)draw;
+
+/// 清空视图
+- (void)clear;
+
 @end
 
 NS_ASSUME_NONNULL_END

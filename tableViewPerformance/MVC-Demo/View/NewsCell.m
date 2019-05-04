@@ -37,7 +37,9 @@ static NSString *kNotifyModelUpdate = @"kNotifyModelUpdate";
 @property(nonatomic, strong)UIView *divideLineView;
 @end
 
-@implementation NewsCell
+@implementation NewsCell {
+    bool _drawed;   // 是否已经绘制过了
+}
 
 #define kImgViewWH (kScreenWidth - 20 - 15) / 4.0
 
@@ -133,22 +135,24 @@ static NSString *kNotifyModelUpdate = @"kNotifyModelUpdate";
     }];
 }
 
-#pragma mark - set
+#pragma mark - 动态绘制
 
-- (void)setModel:(NewsModel *)model {
-    _model = model;
-    [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:model.icon]];
-    
-    self.titleLbe.text = model.title;
+/// 开始绘制
+- (void)draw {
+    if (_drawed) {
+        return;
+    }
+    _drawed = YES;
+    self.titleLbe.text = _model.title;
     [self.titleLbe sizeToFit];
     
-    self.subTitleLbe.text = model.subTitle;
+    self.subTitleLbe.text = _model.subTitle;
     [self.subTitleLbe sizeToFit];
     
-    self.contentLbe.text = model.content;
+    self.contentLbe.text = _model.content;
     [self.contentLbe sizeToFit];
     
-    if (model.isAttention) {
+    if (_model.isAttention) {
         self.attentionLbe.text = @"已关注";
         self.attentionLbe.textColor = [UIColor grayColor];
         self.attentionLbe.userInteractionEnabled = NO;
@@ -166,14 +170,14 @@ static NSString *kNotifyModelUpdate = @"kNotifyModelUpdate";
     float imgListViewHeight = 0;
     float discussActionViewPosY = 0;
     
-    if (model.imgs.count > 0) {
+    if (_model.imgs.count > 0) {
         __block float posX = 0;
-        [model.imgs enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL *stop) {
+        [_model.imgs enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL *stop) {
             UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(posX, 0, kImgViewWH, kImgViewWH)];
             [imgView sd_setImageWithURL:[NSURL URLWithString:obj]];
             imgView.layer.cornerRadius = 5;
             imgView.layer.masksToBounds = YES;
-
+            
             [self.imgListView addSubview:imgView];
             posX += (5 + kImgViewWH);
             if (idx >= 3) {
@@ -200,20 +204,61 @@ static NSString *kNotifyModelUpdate = @"kNotifyModelUpdate";
         make.top.equalTo(self.discussActionView.mas_top);
     }];
     
-    if (model.isLike) {
+    if (_model.isLike) {
         [self.likeActionView updateImgName:@"like_red"];
     } else {
         [self.likeActionView updateImgName:@"like"];
     }
     
-    [self.discussActionView updateTitle:[NSString stringWithFormat:@"%lu",(unsigned long)model.discussNum]];
-    [self.shareActionView updateTitle:[NSString stringWithFormat:@"%lu",(unsigned long)model.shareNum]];
-    [self.likeActionView updateTitle:[NSString stringWithFormat:@"%lu",(unsigned long)model.likeNum]];
+    [self.discussActionView updateTitle:[NSString stringWithFormat:@"%lu",(unsigned long)_model.discussNum]];
+    [self.shareActionView updateTitle:[NSString stringWithFormat:@"%lu",(unsigned long)_model.shareNum]];
+    [self.likeActionView updateTitle:[NSString stringWithFormat:@"%lu",(unsigned long)_model.likeNum]];
     
     [self.divideLineView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.discussActionView.mas_bottom);
         make.bottom.mas_equalTo(self.contentView);
     }];
+}
+
+/// 清空视图
+- (void)clear {
+    if (!_drawed) {
+        return;
+    }
+    _drawed = NO;
+    
+    // content
+    self.contentLbe.text = @"";
+    [self.contentLbe sizeToFit];
+    [self.contentLbe mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.trailing.equalTo(self.contentView).offset(-40);
+    }];
+    
+    // img list
+    [self.imgListView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    [self.imgListView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(0);
+    }];
+    
+    [self.discussActionView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.imgListView.mas_bottom).offset(0);
+    }];
+    
+    [self.shareActionView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.discussActionView.mas_top);
+    }];
+    
+    [self.likeActionView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.discussActionView.mas_top);
+    }];
+}
+
+#pragma mark - set
+
+- (void)setModel:(NewsModel *)model {
+    _model = model;
+    
+    [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:_model.icon]];
 }
 
 #pragma mark - action
