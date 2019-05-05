@@ -149,18 +149,19 @@ static NSString *kNotifyModelUpdate = @"kNotifyModelUpdate";
     self.subTitleLbe.text = _model.subTitle;
     [self.subTitleLbe sizeToFit];
     
-    self.contentLbe.text = _model.content;
-    
     if (_model.isAttention) {
         self.attentionLbe.text = @"已关注";
+        [self.attentionLbe sizeToFit];
         self.attentionLbe.textColor = [UIColor grayColor];
         self.attentionLbe.userInteractionEnabled = NO;
     } else {
         self.attentionLbe.text = @"关注";
+        [self.attentionLbe sizeToFit];
         self.attentionLbe.textColor = [UIColor redColor];
         self.attentionLbe.userInteractionEnabled = YES;
     }
-    [self.attentionLbe sizeToFit];
+    
+    self.contentLbe.text = _model.content;
     
     [self.imgListView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     float imgListViewHeight = 0;
@@ -184,7 +185,20 @@ static NSString *kNotifyModelUpdate = @"kNotifyModelUpdate";
         discussActionViewPosY = 10;
     }
     
-    [self.imgListView mas_updateConstraints:^(MASConstraintMaker *make) {
+//    [self.imgListView mas_updateConstraints:^(MASConstraintMaker *make) {
+//        make.height.mas_equalTo(imgListViewHeight);
+//    }];
+
+    [self.contentLbe mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(self.contentView.mas_leading).offset(10);
+        make.trailing.equalTo(self.contentView.mas_trailing).offset(-10);
+        make.top.equalTo(self.iconImgView.mas_bottom).offset(10);
+    }];
+    
+    [self.imgListView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(self.contentView.mas_leading).offset(10);
+        make.trailing.equalTo(self.contentView.mas_trailing).offset(-10);
+        make.top.equalTo(self.contentLbe.mas_bottom).offset(10);
         make.height.mas_equalTo(imgListViewHeight);
     }];
     
@@ -221,14 +235,6 @@ static NSString *kNotifyModelUpdate = @"kNotifyModelUpdate";
     
     [self.discussActionView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.imgListView.mas_bottom).offset(0);
-    }];
-    
-    [self.shareActionView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.discussActionView.mas_top);
-    }];
-    
-    [self.likeActionView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.discussActionView.mas_top);
     }];
 }
 

@@ -159,6 +159,7 @@ static NSString *cellId = @"NewsCellId";
     NSLog(@"row = %ld, title =%@, subTitle = %@",(long)indexPath.row,model.title,model.subTitle);
     // 如果当前 cell 不在需要绘制的cell 中,则直接 pass
     if (self.needLoadArray.count > 0 && [self.needLoadArray indexOfObject:indexPath] == NSNotFound) {
+        [cell clear];
         return;
     }
     if (_scrollToToping) {

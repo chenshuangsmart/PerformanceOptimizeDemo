@@ -25,7 +25,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
-    self.title = @"首页";
     [self drawUI];
     
     FPSViewer *fpsView = [[FPSViewer alloc] initWithFrame:CGRectMake(0, 0, 200, 44)];
