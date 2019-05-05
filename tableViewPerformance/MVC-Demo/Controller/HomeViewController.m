@@ -31,6 +31,8 @@
     FPSViewer *fpsView = [[FPSViewer alloc] initWithFrame:CGRectMake(0, 0, 200, 44)];
     fpsView.center = CGPointMake(kScreenWidth * 0.5, 40);
     [[UIApplication sharedApplication].keyWindow addSubview:fpsView];
+    
+//    [self drawScrollView];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -97,6 +99,43 @@
 - (void)tapCalculCellHeightLbe {
     CalculateCellHeightViewController *vc = [[CalculateCellHeightViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)drawScrollView {
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 100)];
+    scrollView.backgroundColor = [UIColor orangeColor];
+    [self.view addSubview:scrollView];
+    
+    [scrollView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(scrollView.size);
+        make.leading.equalTo(self.view);
+        make.bottom.equalTo(self.view).offset(-100);
+    }];
+    
+    // 头像
+    UIImageView *iconImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 60, 60)];
+    [iconImgView sd_setImageWithURL:[NSURL URLWithString:@"http://img2.imgtn.bdimg.com/it/u=1718891758,1099874998&fm=26&gp=0.jpg"]];
+    iconImgView.layer.cornerRadius = 30;
+    iconImgView.layer.masksToBounds = YES;
+    [scrollView addSubview:iconImgView];
+    
+    [iconImgView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(iconImgView.size);
+        make.centerY.equalTo(scrollView);
+        make.leading.equalTo(scrollView).offset(20);
+    }];
+    
+    UILabel *nameLbe = [[UILabel alloc] init];
+    nameLbe.text = @"授权";
+    nameLbe.textColor = [UIColor blackColor];
+    [nameLbe sizeToFit];
+    [scrollView addSubview:nameLbe];
+    
+    [nameLbe mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(nameLbe.size);
+        make.centerY.equalTo(scrollView);
+        make.trailing.equalTo(scrollView.mas_leading).offset(scrollView.width - 20);
+    }];
 }
 
 @end

@@ -156,6 +156,7 @@ static NSString *cellId = @"NewsCellId";
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     [cell clear];
     cell.model = model;
+    NSLog(@"row = %ld, title =%@, subTitle = %@",(long)indexPath.row,model.title,model.subTitle);
     // 如果当前 cell 不在需要绘制的cell 中,则直接 pass
     if (self.needLoadArray.count > 0 && [self.needLoadArray indexOfObject:indexPath] == NSNotFound) {
         return;

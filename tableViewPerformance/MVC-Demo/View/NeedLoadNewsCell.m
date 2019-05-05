@@ -192,14 +192,6 @@ static NSString *kNotifyModelUpdate = @"kNotifyModelUpdate";
         make.top.equalTo(self.imgListView.mas_bottom).offset(discussActionViewPosY);
     }];
     
-    [self.shareActionView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.discussActionView.mas_top);
-    }];
-    
-    [self.likeActionView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.discussActionView.mas_top);
-    }];
-    
     if (_model.isLike) {
         [self.likeActionView updateImgName:@"like_red"];
     } else {
@@ -209,11 +201,6 @@ static NSString *kNotifyModelUpdate = @"kNotifyModelUpdate";
     [self.discussActionView updateTitle:[NSString stringWithFormat:@"%lu",(unsigned long)_model.discussNum]];
     [self.shareActionView updateTitle:[NSString stringWithFormat:@"%lu",(unsigned long)_model.shareNum]];
     [self.likeActionView updateTitle:[NSString stringWithFormat:@"%lu",(unsigned long)_model.likeNum]];
-    
-    [self.divideLineView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.discussActionView.mas_bottom);
-        make.bottom.mas_equalTo(self.contentView);
-    }];
 }
 
 /// 清空视图
@@ -225,10 +212,6 @@ static NSString *kNotifyModelUpdate = @"kNotifyModelUpdate";
     
     // content
     self.contentLbe.text = @"";
-    [self.contentLbe sizeToFit];
-    [self.contentLbe mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.trailing.equalTo(self.contentView).offset(-40);
-    }];
     
     // img list
     [self.imgListView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
