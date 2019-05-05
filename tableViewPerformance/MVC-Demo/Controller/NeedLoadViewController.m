@@ -7,10 +7,10 @@
 //
 
 #import "NeedLoadViewController.h"
-#import "NewsCell.h"
+#import "NeedLoadNewsCell.h"
 #import "NewsModel.h"
 
-@interface NeedLoadViewController ()<UITableViewDataSource, UITableViewDelegate, NewsCellDelegate>
+@interface NeedLoadViewController ()<UITableViewDataSource, UITableViewDelegate, NeedLoadNewsCellDelegate>
 /** tableView */
 @property(nonatomic, strong)UITableView *tableView;
 /** dataSource */
@@ -144,14 +144,14 @@ static NSString *cellId = @"NewsCellId";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NewsCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    NeedLoadNewsCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     [self drawCell:cell withIndexPath:indexPath];
     cell.delegate = self;   // VC作为Cell视图的代理对象
     return cell;
 }
 
 // 按需绘制
-- (void)drawCell:(NewsCell *)cell withIndexPath:(NSIndexPath *)indexPath{
+- (void)drawCell:(NeedLoadNewsCell *)cell withIndexPath:(NSIndexPath *)indexPath{
     NewsModel *model = [self.dataSource objectAtIndex:indexPath.row];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     [cell clear];
@@ -170,22 +170,25 @@ static NSString *cellId = @"NewsCellId";
 
 // 按需加载 - 如果目标行与当前行相差超过指定行数，只在目标滚动范围的前后指定3行加载。
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
-    NSIndexPath *ip = [self.tableView indexPathForRowAtPoint:CGPointMake(0, targetContentOffset->y)];
-    NSIndexPath *cip = [[self.tableView indexPathsForVisibleRows] firstObject];
+    NSIndexPath *ip = [self.tableView indexPathForRowAtPoint:CGPointMake(0, targetContentOffset->y)];   // 停止拖拽后,预计滑动停止后到的偏移量
+    NSIndexPath *cip = [[self.tableView indexPathsForVisibleRows] firstObject]; // 当前可视区域内 cell 组
     NSInteger skipCount = 8;
-    
-    if (labs(cip.row - ip.row) > skipCount) {   // labs-返回 x 的绝对值
+    NSLog(@"targetContentOffset = %f",targetContentOffset->y);
+    NSLog(@"indexPathForRowAtPoint = %@",ip);
+    NSLog(@"visibleRows = %@",[self.tableView indexPathsForVisibleRows]);
+    if (labs(cip.row - ip.row) > skipCount) {   // labs-返回 x 的绝对值,进入该方法,说明滑动太厉害了,预计停留位置与当前可视区域范围内差 8 个cell 以上了.
+        // 拖拽停止滑动停止后,即将显示的 cell 索引组
         NSArray *temp = [self.tableView indexPathsForRowsInRect:CGRectMake(0, targetContentOffset->y, self.tableView.width, self.tableView.height)];
         NSMutableArray *arrM = [NSMutableArray arrayWithArray:temp];
-        
-        if (velocity.y < 0) {
+        NSLog(@"temp = %@",temp);
+        if (velocity.y < 0) {   // 向上滑动-即加载更多数据
             NSIndexPath *indexPath = [temp lastObject];
-            if (indexPath.row + 3 < self.dataSource.count) {
+            if (indexPath.row + 3 < self.dataSource.count) {    // 滑动停止后出现的 cell 索引仍在数据源范围之内
                 [arrM addObject:[NSIndexPath indexPathForRow:indexPath.row + 1 inSection:0]];
                 [arrM addObject:[NSIndexPath indexPathForRow:indexPath.row + 2 inSection:0]];
                 [arrM addObject:[NSIndexPath indexPathForRow:indexPath.row + 3 inSection:0]];
             }
-        } else {
+        } else {    // 向下滑动-加载之前的数据
             NSIndexPath *indexPath = [temp firstObject];
             if (indexPath.row > 3) {
                 [arrM addObject:[NSIndexPath indexPathForRow:indexPath.row - 3 inSection:0]];
@@ -198,6 +201,7 @@ static NSString *cellId = @"NewsCellId";
     }
 }
 
+// 开始滚动到顶部
 - (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
     _scrollToToping = YES;
     return YES;
@@ -208,6 +212,7 @@ static NSString *cellId = @"NewsCellId";
     [self loadContent];
 }
 
+// 已经滚动到顶部
 - (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
     _scrollToToping = NO;
     [self loadContent];
@@ -221,7 +226,7 @@ static NSString *cellId = @"NewsCellId";
         return;
     }
     if (self.tableView.visibleCells && self.tableView.visibleCells.count > 0) {
-        for (NewsCell *cell in [self.tableView.visibleCells copy]) {
+        for (NeedLoadNewsCell *cell in [self.tableView.visibleCells copy]) {
             [cell draw];
         }
     }
@@ -339,7 +344,7 @@ static NSString *cellId = @"NewsCellId";
         _tableView.scrollsToTop = YES;
         _tableView.estimatedRowHeight = 250;//预估高度
         _tableView.rowHeight = UITableViewAutomaticDimension;
-        [_tableView registerClass:[NewsCell class] forCellReuseIdentifier:cellId];
+        [_tableView registerClass:[NeedLoadNewsCell class] forCellReuseIdentifier:cellId];
         __weak typeof(self) weakSelf = self;
         [_tableView addPullToRefreshWithActionHandler:^{
             [weakSelf refreshData];

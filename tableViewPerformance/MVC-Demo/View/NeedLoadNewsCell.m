@@ -1,18 +1,18 @@
 //
-//  NewsCell.m
+//  NeedLoadNewsCell.m
 //  MVC-Demo
 //
-//  Created by cs on 2019/4/11.
+//  Created by cs on 2019/5/5.
 //  Copyright © 2019 cs. All rights reserved.
 //
 
-#import "NewsCell.h"
+#import "NeedLoadNewsCell.h"
 #import "NewsModel.h"
 #import "NewsActionView.h"
 
 static NSString *kNotifyModelUpdate = @"kNotifyModelUpdate";
 
-@interface NewsCell()
+@interface NeedLoadNewsCell()
 /** icon */
 @property(nonatomic, strong)UIImageView *iconImgView;
 /** title */
@@ -37,7 +37,9 @@ static NSString *kNotifyModelUpdate = @"kNotifyModelUpdate";
 @property(nonatomic, strong)UIView *divideLineView;
 @end
 
-@implementation NewsCell
+@implementation NeedLoadNewsCell {
+    bool _drawed;   // 是否已经绘制过了
+}
 
 #define kImgViewWH (kScreenWidth - 20 - 15) / 4.0
 
@@ -46,7 +48,7 @@ static NSString *kNotifyModelUpdate = @"kNotifyModelUpdate";
     if (self) {
         self.contentView.backgroundColor = [UIColor whiteColor];
         [self drawUI];
-//        [self addNotify];
+        //        [self addNotify];
     }
     return self;
 }
@@ -71,7 +73,7 @@ static NSString *kNotifyModelUpdate = @"kNotifyModelUpdate";
         make.top.equalTo(self.contentView.mas_top).offset(10);
         make.leading.equalTo(self.contentView.mas_leading).offset(10);
     }];
-
+    
     [self.titleLbe mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self.iconImgView.mas_trailing).offset(10);
         make.bottom.equalTo(self.iconImgView.mas_centerY).offset(-2);
@@ -133,13 +135,14 @@ static NSString *kNotifyModelUpdate = @"kNotifyModelUpdate";
     }];
 }
 
-#pragma mark - set
+#pragma mark - 动态绘制
 
-- (void)setModel:(NewsModel *)model {
-    _model = model;
-    
-    [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:_model.icon]];
-    
+/// 开始绘制
+- (void)draw {
+    if (_drawed) {
+        return;
+    }
+    _drawed = YES;
     self.titleLbe.text = _model.title;
     [self.titleLbe sizeToFit];
     
@@ -147,7 +150,6 @@ static NSString *kNotifyModelUpdate = @"kNotifyModelUpdate";
     [self.subTitleLbe sizeToFit];
     
     self.contentLbe.text = _model.content;
-    [self.contentLbe sizeToFit];
     
     if (_model.isAttention) {
         self.attentionLbe.text = @"已关注";
@@ -159,9 +161,6 @@ static NSString *kNotifyModelUpdate = @"kNotifyModelUpdate";
         self.attentionLbe.userInteractionEnabled = YES;
     }
     [self.attentionLbe sizeToFit];
-    [self.contentLbe mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.trailing.equalTo(self.contentView).offset(-40);
-    }];
     
     [self.imgListView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     float imgListViewHeight = 0;
@@ -217,6 +216,47 @@ static NSString *kNotifyModelUpdate = @"kNotifyModelUpdate";
     }];
 }
 
+/// 清空视图
+- (void)clear {
+    if (!_drawed) {
+        return;
+    }
+    _drawed = NO;
+    
+    // content
+    self.contentLbe.text = @"";
+    [self.contentLbe sizeToFit];
+    [self.contentLbe mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.trailing.equalTo(self.contentView).offset(-40);
+    }];
+    
+    // img list
+    [self.imgListView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    [self.imgListView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(0);
+    }];
+    
+    [self.discussActionView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.imgListView.mas_bottom).offset(0);
+    }];
+    
+    [self.shareActionView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.discussActionView.mas_top);
+    }];
+    
+    [self.likeActionView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.discussActionView.mas_top);
+    }];
+}
+
+#pragma mark - set
+
+- (void)setModel:(NewsModel *)model {
+    _model = model;
+    
+    [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:_model.icon]];
+}
+
 #pragma mark - action
 
 - (void)tapAttentionLbe {
@@ -256,30 +296,30 @@ static NSString *kNotifyModelUpdate = @"kNotifyModelUpdate";
      * view上面的用户行为事件如何处理？
      2.直接发起网络请求并处理回调事件 - 非标准的MVC写法,此种写法有问题
      */
-//    NSLog(@"old model %p",self.model);
-//    __weak typeof(self) weakSelf = self;
-//    [self.model addLike:^(NSDictionary *json) {
-//        weakSelf.model.like = !weakSelf.model.isLike;
-//        NSLog(@"new model %p",weakSelf.model);
-//        if (weakSelf.model.isLike) {
-//            [weakSelf.likeActionView updateImgName:@"like_red"];
-//            weakSelf.model.likeNum++;
-//        } else {
-//            [weakSelf.likeActionView updateImgName:@"like"];
-//            weakSelf.model.likeNum--;
-//        }
-//        [weakSelf.likeActionView updateTitle:[NSString stringWithFormat:@"%lu",(unsigned long)weakSelf.model.likeNum]];
-//    }];
+    //    NSLog(@"old model %p",self.model);
+    //    __weak typeof(self) weakSelf = self;
+    //    [self.model addLike:^(NSDictionary *json) {
+    //        weakSelf.model.like = !weakSelf.model.isLike;
+    //        NSLog(@"new model %p",weakSelf.model);
+    //        if (weakSelf.model.isLike) {
+    //            [weakSelf.likeActionView updateImgName:@"like_red"];
+    //            weakSelf.model.likeNum++;
+    //        } else {
+    //            [weakSelf.likeActionView updateImgName:@"like"];
+    //            weakSelf.model.likeNum--;
+    //        }
+    //        [weakSelf.likeActionView updateTitle:[NSString stringWithFormat:@"%lu",(unsigned long)weakSelf.model.likeNum]];
+    //    }];
     
     /**
      * 数据模型更新了后如何处理？
      * 直接发通知,然后视图监听通知并刷新视图
      */
-//    __weak typeof(self) weakSelf = self;
-//    [self.model addLike:^(NSDictionary *json) {
-//        // 发通知
-//        [[NSNotificationCenter defaultCenter] postNotificationName:kNotifyModelUpdate object:weakSelf.model];
-//    }];
+    //    __weak typeof(self) weakSelf = self;
+    //    [self.model addLike:^(NSDictionary *json) {
+    //        // 发通知
+    //        [[NSNotificationCenter defaultCenter] postNotificationName:kNotifyModelUpdate object:weakSelf.model];
+    //    }];
 }
 
 #pragma mark - notify
@@ -406,5 +446,4 @@ static NSString *kNotifyModelUpdate = @"kNotifyModelUpdate";
     }
     return _divideLineView;
 }
-
 @end

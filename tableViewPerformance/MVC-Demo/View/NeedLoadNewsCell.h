@@ -1,8 +1,8 @@
 //
-//  NewsCell.h
+//  NeedLoadNewsCell.h
 //  MVC-Demo
 //
-//  Created by cs on 2019/4/11.
+//  Created by cs on 2019/5/5.
 //  Copyright © 2019 cs. All rights reserved.
 //
 
@@ -12,7 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol NewsCellDelegate <NSObject>
+@protocol NeedLoadNewsCellDelegate <NSObject>
 
 // tap delete
 - (void)didTapNewsCellDelete:(NewsModel *)newsModel;
@@ -31,13 +31,23 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface NewsCell : UITableViewCell
+/**
+ 按需加载的新闻 cell
+ */
+@interface NeedLoadNewsCell : UITableViewCell
 
 /** model */
 @property(nonatomic, strong)NewsModel *model;
 
 /** delegate */
-@property(nonatomic,weak)id<NewsCellDelegate> delegate;
+@property(nonatomic,weak)id<NeedLoadNewsCellDelegate> delegate;
+
+/// 开始绘制
+- (void)draw;
+
+/// 清空视图
+- (void)clear;
+
 
 @end
 

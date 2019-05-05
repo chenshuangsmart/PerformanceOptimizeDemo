@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		401F478F227E6A0900A18F4D /* NeedLoadNewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 401F478E227E6A0900A18F4D /* NeedLoadNewsCell.m */; };
 		4023F3472264118E0001398C /* FPSViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4023F3462264118E0001398C /* FPSViewer.m */; };
 		4023F34A226565200001398C /* CalculateCellHeightViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4023F349226565200001398C /* CalculateCellHeightViewController.m */; };
 		4023F34D2266B0630001398C /* UILabel+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4023F34C2266B0630001398C /* UILabel+Extension.m */; };
@@ -36,6 +37,8 @@
 
 /* Begin PBXFileReference section */
 		1FD5C7AB170C4756B3B5A0F6 /* Pods-MVC-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVC-Demo.debug.xcconfig"; path = "Target Support Files/Pods-MVC-Demo/Pods-MVC-Demo.debug.xcconfig"; sourceTree = "<group>"; };
+		401F478D227E6A0900A18F4D /* NeedLoadNewsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NeedLoadNewsCell.h; sourceTree = "<group>"; };
+		401F478E227E6A0900A18F4D /* NeedLoadNewsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NeedLoadNewsCell.m; sourceTree = "<group>"; };
 		4023F3452264118E0001398C /* FPSViewer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FPSViewer.h; sourceTree = "<group>"; };
 		4023F3462264118E0001398C /* FPSViewer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FPSViewer.m; sourceTree = "<group>"; };
 		4023F348226565200001398C /* CalculateCellHeightViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalculateCellHeightViewController.h; sourceTree = "<group>"; };
@@ -216,6 +219,8 @@
 				4023F3462264118E0001398C /* FPSViewer.m */,
 				93C511BC2266264400B86678 /* CalculateNewsCell.h */,
 				93C511BD2266264400B86678 /* CalculateNewsCell.m */,
+				401F478D227E6A0900A18F4D /* NeedLoadNewsCell.h */,
+				401F478E227E6A0900A18F4D /* NeedLoadNewsCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -349,6 +354,7 @@
 			files = (
 				93A25CF922632C2C00C9C389 /* NewsModel.m in Sources */,
 				93A25D0022632C3200C9C389 /* NewsActionView.m in Sources */,
+				401F478F227E6A0900A18F4D /* NeedLoadNewsCell.m in Sources */,
 				93A25CF522632C2400C9C389 /* ViewController.m in Sources */,
 				93A25CF322632C2400C9C389 /* FPSHandler.m in Sources */,
 				4023F34A226565200001398C /* CalculateCellHeightViewController.m in Sources */,
