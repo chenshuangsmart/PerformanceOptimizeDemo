@@ -147,7 +147,6 @@ static NSString *kNotifyModelUpdate = @"kNotifyModelUpdate";
     [self.subTitleLbe sizeToFit];
     
     self.contentLbe.text = _model.content;
-    [self.contentLbe sizeToFit];
     
     if (_model.isAttention) {
         self.attentionLbe.text = @"已关注";
@@ -159,9 +158,6 @@ static NSString *kNotifyModelUpdate = @"kNotifyModelUpdate";
         self.attentionLbe.userInteractionEnabled = YES;
     }
     [self.attentionLbe sizeToFit];
-    [self.contentLbe mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.trailing.equalTo(self.contentView).offset(-40);
-    }];
     
     [self.imgListView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     float imgListViewHeight = 0;
@@ -193,14 +189,6 @@ static NSString *kNotifyModelUpdate = @"kNotifyModelUpdate";
         make.top.equalTo(self.imgListView.mas_bottom).offset(discussActionViewPosY);
     }];
     
-    [self.shareActionView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.discussActionView.mas_top);
-    }];
-    
-    [self.likeActionView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.discussActionView.mas_top);
-    }];
-    
     if (_model.isLike) {
         [self.likeActionView updateImgName:@"like_red"];
     } else {
@@ -210,11 +198,6 @@ static NSString *kNotifyModelUpdate = @"kNotifyModelUpdate";
     [self.discussActionView updateTitle:[NSString stringWithFormat:@"%lu",(unsigned long)_model.discussNum]];
     [self.shareActionView updateTitle:[NSString stringWithFormat:@"%lu",(unsigned long)_model.shareNum]];
     [self.likeActionView updateTitle:[NSString stringWithFormat:@"%lu",(unsigned long)_model.likeNum]];
-    
-    [self.divideLineView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.discussActionView.mas_bottom);
-        make.bottom.mas_equalTo(self.contentView);
-    }];
 }
 
 #pragma mark - action
