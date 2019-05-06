@@ -11,6 +11,7 @@
 #import "NeedLoadViewController.h"
 #import "FPSViewer.h"
 #import "CalculateCellHeightViewController.h"
+#import "AsyncDrawViewController.h"
 
 @interface HomeViewController ()
 /** debug */
@@ -69,7 +70,7 @@
         make.centerX.equalTo(self.view);
     }];
     
-    // 断点测试
+    // 缓存 Cell 高度
     UILabel *calculCellHeightLbe = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 44)];
     calculCellHeightLbe.textColor = [UIColor blackColor];
     calculCellHeightLbe.text = @"缓存 Cell 高度";
@@ -83,7 +84,24 @@
         make.top.equalTo(needLoadLbe.mas_bottom).offset(50);
         make.centerX.equalTo(self.view);
     }];
+    
+    // 异步绘制
+    UILabel * asyncDrawLbe = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 44)];
+    asyncDrawLbe.textColor = [UIColor blackColor];
+    asyncDrawLbe.text = @"异步绘制";
+    asyncDrawLbe.textAlignment = NSTextAlignmentCenter;
+    asyncDrawLbe.backgroundColor = [UIColor orangeColor];
+    [asyncDrawLbe onTap:self action:@selector(tapAsyncDrawLbe)];
+    [self.view addSubview:asyncDrawLbe];
+    
+    [asyncDrawLbe mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(asyncDrawLbe.size);
+        make.top.equalTo( calculCellHeightLbe.mas_bottom).offset(50);
+        make.centerX.equalTo(self.view);
+    }];
 }
+
+#pragma mark - action
 
 - (void)tapNormalLbe {
     ViewController *vc = [[ViewController alloc] init];
@@ -99,6 +117,13 @@
     CalculateCellHeightViewController *vc = [[CalculateCellHeightViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
+
+- (void)tapAsyncDrawLbe {
+    AsyncDrawViewController *vc = [[AsyncDrawViewController alloc] init];
+     [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark - test
 
 - (void)drawScrollView {
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 100)];

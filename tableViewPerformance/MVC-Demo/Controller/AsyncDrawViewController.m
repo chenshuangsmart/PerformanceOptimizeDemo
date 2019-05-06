@@ -1,29 +1,25 @@
 //
-//  NeedLoadViewController.m
+//  AsyncDrawViewController.m
 //  MVC-Demo
 //
-//  Created by chenshuang on 2019/4/14.
-//  Copyright © 2019年 cs. All rights reserved.
+//  Created by cs on 2019/5/6.
+//  Copyright © 2019 cs. All rights reserved.
 //
 
-#import "NeedLoadViewController.h"
-#import "NeedLoadNewsCell.h"
+#import "AsyncDrawViewController.h"
+#import "AsyncDrawNewsCell.h"
 #import "NewsModel.h"
 
-@interface NeedLoadViewController ()<UITableViewDataSource, UITableViewDelegate, NeedLoadNewsCellDelegate>
+@interface AsyncDrawViewController ()<UITableViewDataSource, UITableViewDelegate, AsyncDrawNewsCellDelegate>
 /** tableView */
 @property(nonatomic, strong)UITableView *tableView;
 /** dataSource */
 @property(nonatomic, strong)NSMutableArray<NewsModel *> *dataSource;
-/** need load array */
-@property(nonatomic, strong)NSMutableArray<NSIndexPath *> *needLoadArray;
 @end
 
 static NSString *cellId = @"NewsCellId";
 
-@implementation NeedLoadViewController {
-    bool _scrollToToping;   // 是否滚动到顶部
-}
+@implementation AsyncDrawViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -37,15 +33,8 @@ static NSString *cellId = @"NewsCellId";
     NSLog(@"%s",__func__);
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    if (!_scrollToToping) {
-        [self.needLoadArray removeAllObjects];
-        [self loadContent];
-    }
-}
-
 - (void)setupData {
-    [self.dataSource addObjectsFromArray:[self getRandomData]];    
+    [self.dataSource addObjectsFromArray:[self getRandomData]];
 }
 
 - (void)drawUI {
@@ -144,93 +133,11 @@ static NSString *cellId = @"NewsCellId";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NeedLoadNewsCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-    [self drawCell:cell withIndexPath:indexPath];
-    cell.delegate = self;   // VC作为Cell视图的代理对象
-    return cell;
-}
-
-// 按需绘制
-- (void)drawCell:(NeedLoadNewsCell *)cell withIndexPath:(NSIndexPath *)indexPath{
     NewsModel *model = [self.dataSource objectAtIndex:indexPath.row];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    [cell clear];
+    AsyncDrawNewsCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    cell.delegate = self;   // VC作为Cell视图的代理对象
     cell.model = model;
-    // 如果当前 cell 不在需要绘制的cell 中,则直接 pass
-    if (self.needLoadArray.count > 0 && [self.needLoadArray indexOfObject:indexPath] == NSNotFound) {
-        [cell clear];
-        return;
-    }
-    if (_scrollToToping) {
-        return;
-    }
-    [cell draw];
-}
-
-#pragma mark - UIScrollViewDelegate
-
-// 按需加载 - 如果目标行与当前行相差超过指定行数，只在目标滚动范围的前后指定3行加载。
-- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
-    NSIndexPath *ip = [self.tableView indexPathForRowAtPoint:CGPointMake(0, targetContentOffset->y)];   // 停止拖拽后,预计滑动停止后到的偏移量
-    NSIndexPath *cip = [[self.tableView indexPathsForVisibleRows] firstObject]; // 当前可视区域内 cell 组
-    NSInteger skipCount = 8;
-    NSLog(@"targetContentOffset = %f",targetContentOffset->y);
-    NSLog(@"indexPathForRowAtPoint = %@",ip);
-    NSLog(@"visibleRows = %@",[self.tableView indexPathsForVisibleRows]);
-    if (labs(cip.row - ip.row) > skipCount) {   // labs-返回 x 的绝对值,进入该方法,说明滑动太厉害了,预计停留位置与当前可视区域范围内差 8 个cell 以上了.
-        // 拖拽停止滑动停止后,即将显示的 cell 索引组
-        NSArray *temp = [self.tableView indexPathsForRowsInRect:CGRectMake(0, targetContentOffset->y, self.tableView.width, self.tableView.height)];
-        NSMutableArray *arrM = [NSMutableArray arrayWithArray:temp];
-        NSLog(@"temp = %@",temp);
-        if (velocity.y < 0) {   // 向上滑动-即加载更多数据
-            NSIndexPath *indexPath = [temp lastObject];
-            if (indexPath.row + 3 < self.dataSource.count) {    // 滑动停止后出现的 cell 索引仍在数据源范围之内
-                [arrM addObject:[NSIndexPath indexPathForRow:indexPath.row + 1 inSection:0]];
-                [arrM addObject:[NSIndexPath indexPathForRow:indexPath.row + 2 inSection:0]];
-                [arrM addObject:[NSIndexPath indexPathForRow:indexPath.row + 3 inSection:0]];
-            }
-        } else {    // 向下滑动-加载之前的数据
-            NSIndexPath *indexPath = [temp firstObject];
-            if (indexPath.row > 3) {
-                [arrM addObject:[NSIndexPath indexPathForRow:indexPath.row - 3 inSection:0]];
-                [arrM addObject:[NSIndexPath indexPathForRow:indexPath.row - 2 inSection:0]];
-                [arrM addObject:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
-            }
-        }
-        
-        [self.needLoadArray addObjectsFromArray:arrM];
-    }
-}
-
-// 开始滚动到顶部
-- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
-    _scrollToToping = YES;
-    return YES;
-}
-
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
-    _scrollToToping = NO;
-    [self loadContent];
-}
-
-// 已经滚动到顶部
-- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
-    _scrollToToping = NO;
-    [self loadContent];
-}
-
-- (void)loadContent {
-    if (_scrollToToping) {
-        return;
-    }
-    if (self.tableView.indexPathsForVisibleRows.count <= 0) {
-        return;
-    }
-    if (self.tableView.visibleCells && self.tableView.visibleCells.count > 0) {
-        for (NeedLoadNewsCell *cell in [self.tableView.visibleCells copy]) {
-            [cell draw];
-        }
-    }
+    return cell;
 }
 
 #pragma mark - NewsCellDelegate
@@ -345,7 +252,7 @@ static NSString *cellId = @"NewsCellId";
         _tableView.scrollsToTop = YES;
         _tableView.estimatedRowHeight = 250;//预估高度
         _tableView.rowHeight = UITableViewAutomaticDimension;
-        [_tableView registerClass:[NeedLoadNewsCell class] forCellReuseIdentifier:cellId];
+        [_tableView registerClass:[AsyncDrawNewsCell class] forCellReuseIdentifier:cellId];
         __weak typeof(self) weakSelf = self;
         [_tableView addPullToRefreshWithActionHandler:^{
             [weakSelf refreshData];
@@ -362,13 +269,6 @@ static NSString *cellId = @"NewsCellId";
         _dataSource = [NSMutableArray array];
     }
     return _dataSource;
-}
-
-- (NSMutableArray<NSIndexPath *> *)needLoadArray {
-    if (_needLoadArray == nil) {
-        _needLoadArray = [NSMutableArray array];
-    }
-    return _needLoadArray;
 }
 
 @end
