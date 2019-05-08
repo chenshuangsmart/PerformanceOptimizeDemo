@@ -129,4 +129,51 @@
     return _subTitles;
 }
 
+- (NSArray *)specialWords {
+    if (_specialWords == nil) {
+        NSMutableArray *subTitles = [NSMutableArray array];
+        [subTitles addObject:@"@皆大欢喜"];
+        [subTitles addObject:@"@掌上明珠"];
+        [subTitles addObject:@"@八仙过海"];
+        [subTitles addObject:@"@国色天香"];
+        [subTitles addObject:@"@花花公子"];
+        [subTitles addObject:@"@珠光宝气"];
+        [subTitles addObject:@"@两小无猜"];
+        [subTitles addObject:@"@天下无双"];
+        [subTitles addObject:@"@插翅难逃"];
+        [subTitles addObject:@"@兵临城下"];
+        [subTitles addObject:@"@逍遥法外"];
+        [subTitles addObject:@"@金玉良缘"];
+        [subTitles addObject:@"@相亲相爱"];
+        [subTitles addObject:@"@绘声绘影"];
+        [subTitles addObject:@"@簪缨世族"];
+        [subTitles addObject:@"@卧虎藏龙"];
+        [subTitles addObject:@"@偷天换日"];
+        [subTitles addObject:@"@黄道吉日"];
+        [subTitles addObject:@"@春暖花开"];
+        [subTitles addObject:@"@满腹经纶"];
+        
+        _specialWords = subTitles.copy;
+    }
+    return _specialWords;
+}
+
+
+- (NSArray *)links {
+    if (_links == nil) {
+        NSMutableArray *subTitles = [NSMutableArray array];
+        [subTitles addObject:@"http://t.cn.ran"];
+        [subTitles addObject:@"http://t.cn.ran.e.fdfj.fod.com"];
+        [subTitles addObject:@"http://t.cn.ran34.4t5.fdifj.45.com"];
+        [subTitles addObject:@"http://t.cn.rane.44.5.5.fff.e.f.com"];
+        [subTitles addObject:@"http://t.cn.ranf4l4.4l4lr"];
+        [subTitles addObject:@"http://t.cn.randfsfs4rffsd.s."];
+        [subTitles addObject:@"http://t.cn.ran.344f.4.44f.4"];
+        [subTitles addObject:@"http://t.cn.ran.e.ref.ef.ef.e"];
+        [subTitles addObject:@"http://t.cn.ran.e.fe.fe.fe.fe.f.ef"];
+        [subTitles addObject:@"http://t.cn.ran.e.fe.fe.f.ef.ef"];
+        _links = subTitles.copy;
+    }
+    return _links;
+}
 @end

@@ -25,6 +25,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)NSArray *titles;
 /** sub title*/
 @property(nonatomic,strong)NSArray *subTitles;
+/** links */
+@property(nonatomic, strong)NSArray *links;
+/** specials */
+@property(nonatomic, strong)NSArray *specialWords;
 
 @end
 

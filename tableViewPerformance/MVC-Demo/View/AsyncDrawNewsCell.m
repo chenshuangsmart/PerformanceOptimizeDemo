@@ -9,6 +9,8 @@
 #import "AsyncDrawNewsCell.h"
 #import "NewsModel.h"
 #import "NewsActionView.h"
+#import "NSString+Additions.h"
+#import "NSString+Additions.h"
 
 static NSString *kNotifyModelUpdate = @"kNotifyModelUpdate";
 
@@ -23,7 +25,8 @@ static NSString *kNotifyModelUpdate = @"kNotifyModelUpdate";
 @property(nonatomic, strong)UILabel *attentionLbe;
 /** delete */
 @property(nonatomic, strong)UIImageView *deleteImgView;
-
+/** postBGImgView */
+@property(nonatomic, weak)UIImageView *contentImgView;
 @end
 
 @implementation AsyncDrawNewsCell {
@@ -37,32 +40,20 @@ static NSString *kNotifyModelUpdate = @"kNotifyModelUpdate";
     if (self) {
         self.contentView.backgroundColor = [UIColor whiteColor];
         [self drawUI];
-        //        [self addNotify];
     }
     return self;
 }
 
 - (void)drawUI {
+    self.clipsToBounds = YES;
+    UIImageView *contentImgView = [[UIImageView alloc] initWithFrame:CGRectZero];
+    [self.contentView insertSubview:contentImgView atIndex:0];
+    self.contentImgView = contentImgView;
+    
     self.contentView.width = kScreenWidth;
     self.iconImgView.y = 10;
     self.iconImgView.x = 10;
     [self.contentView addSubview:self.iconImgView];
-    
-    self.titleLbe.x = self.iconImgView.right + 10;
-    self.titleLbe.bottom = self.iconImgView.centerY - 2;
-    [self.contentView addSubview:self.titleLbe];
-    
-    self.subTitleLbe.x = self.titleLbe.x;
-    self.subTitleLbe.y = self.iconImgView.centerY + 2;
-    [self.contentView addSubview:self.subTitleLbe];
-    
-    self.deleteImgView.centerY = self.iconImgView.centerY;
-    self.deleteImgView.right = kScreenWidth - 10;
-    [self.contentView addSubview:self.deleteImgView];
-    
-    self.attentionLbe.centerY = self.iconImgView.centerY;
-    self.attentionLbe.right = self.deleteImgView.x - 10;
-    [self.contentView addSubview:self.attentionLbe];
 }
 
 #pragma mark - 动态绘制
@@ -82,23 +73,68 @@ static NSString *kNotifyModelUpdate = @"kNotifyModelUpdate";
     
     [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:_model.icon]];
     
-    self.titleLbe.text = _model.title;
-    [self.titleLbe sizeToFit];
-    
-    self.subTitleLbe.text = _model.subTitle;
-    [self.subTitleLbe sizeToFit];
-    
-    if (_model.isAttention) {
-        self.attentionLbe.text = @"已关注";
-        self.attentionLbe.textColor = [UIColor grayColor];
-        self.attentionLbe.userInteractionEnabled = NO;
-    } else {
-        self.attentionLbe.text = @"关注";
-        self.attentionLbe.textColor = [UIColor redColor];
-        self.attentionLbe.userInteractionEnabled = YES;
-    }
-    
-    [self.attentionLbe sizeToFit];
+    // 开始异步绘制
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        // 先开启一个上下文
+        UIGraphicsBeginImageContextWithOptions(model.totalFrame.size, YES, 0);
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        
+        // 整个 cell区域
+        [[UIColor colorWithRed:250/255.0 green:250/255.0 blue:250/255.0 alpha:1] set];
+        CGContextFillRect(context, model.totalFrame);
+        
+        // 先绘制内容的背景视图
+        [[UIColor colorWithRed:243/255.0 green:243/255.0 blue:243/255.0 alpha:1] set];
+        CGContextFillRect(context, model.contentFrame);
+        
+        // 内容视图上方分割线
+        [[UIColor colorWithRed:200/255.0 green:200/255.0 blue:200/255.0 alpha:1] set];
+        CGContextFillRect(context, CGRectMake(0, model.contentFrame.origin.y, model.contentFrame.size.width, 0.5));
+        
+        // title + subTitle
+        {
+            // title
+            float leftX = SIZE_GAP_LEFT + SIZE_AVATAR + SIZE_GAP_BIG;
+            float x = leftX;
+            float y = (SIZE_AVATAR - (SIZE_FONT_NAME + SIZE_FONT_SUBTITLE + 6)) * 0.5 - 2 + SIZE_GAP_TOP + SIZE_GAP_SMALL - 5;
+            [model.title drawInContext:context
+                          withPosition:CGPointMake(x, y)
+                               andFont:FontWithSize(SIZE_FONT_NAME)
+                          andTextColor:[UIColor colorWithRed:106/255.0 green:140/255.0 blue:181/255.0 alpha:1]
+                             andHeight:model.totalFrame.size.height];
+            
+            // subTitle
+            y += (SIZE_FONT_NAME + 5);
+            float fromX = leftX;
+            float titleWidth = kScreenWidth - leftX;
+            [model.subTitle drawInContext:context
+                             withPosition:CGPointMake(fromX, y)
+                                  andFont:FontWithSize(SIZE_FONT_SUBTITLE)
+                             andTextColor:[UIColor colorWithRed:178/255.0 green:178/255.0 blue:178/255.0 alpha:1]
+                                andHeight:model.totalFrame.size.height
+                                 andWidth:titleWidth];
+        }
+        
+        // 是否关注
+        
+        // 删除图标
+        
+        // 内容
+        
+        // 点赞+评论按钮 - 顶部分割线
+        [[UIColor colorWithRed:200/255.0 green:200/255.0 blue:200/255.0 alpha:1] set];
+        CGContextFillRect(context, CGRectMake(0, model.contentFrame.origin.y + model.contentFrame.size.height, kScreenWidth, 0.5));
+        
+        // 生成图片
+        UIImage *temp = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.contentImgView.frame = model.totalFrame;
+            self.contentImgView.image = nil;
+            self.contentImgView.image = temp;
+        });
+
+    });
 }
 
 #pragma mark - private

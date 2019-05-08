@@ -9,6 +9,7 @@
 #import "AsyncDrawViewController.h"
 #import "AsyncDrawNewsCell.h"
 #import "NewsModel.h"
+#import "NSString+Additions.h"
 
 @interface AsyncDrawViewController ()<UITableViewDataSource, UITableViewDelegate, AsyncDrawNewsCellDelegate>
 /** tableView */
@@ -86,6 +87,8 @@ static NSString *cellId = @"NewsCellId";
         model.title = [[NewsHandler shareInstance].titles objectAtIndex:arc4random_uniform(10)];
         model.subTitle = [[NewsHandler shareInstance].subTitles objectAtIndex:arc4random_uniform(10)];
         model.content = [[NewsHandler shareInstance].contents objectAtIndex:arc4random_uniform(20)];
+        model.specialWord = [[NewsHandler shareInstance].specialWords objectAtIndex:arc4random_uniform(20)];
+        model.link = [[NewsHandler shareInstance].links objectAtIndex:arc4random_uniform(10)];
         NSUInteger index = arc4random_uniform(6);
         NSMutableArray *imgs = [NSMutableArray array];
         for (int i = 0; i < index; i++) {
@@ -100,6 +103,32 @@ static NSString *cellId = @"NewsCellId";
         model.shareNum = arc4random_uniform(100);
         model.discussNum = arc4random_uniform(100);
         model.likeNum = arc4random_uniform(100) + 1;
+        
+        // 计算 frame
+        // 1.内容 + 图片预览
+        {
+            NSString *content = [NSString stringWithFormat:@"%@: %@ %@",model.specialWord,model.content,model.link];
+            float width = kScreenWidth - SIZE_GAP_LEFT * 2;
+            CGSize size = [content sizeWithConstrainedToWidth:width fromFont:FontWithSize(SIZE_FONT_SUBCONTENT) lineSpace:5];
+            NSInteger sizeHeight = size.height + 0.5;
+            model.textFrame = CGRectMake(SIZE_GAP_LEFT, SIZE_GAP_BIG, width, sizeHeight);
+            sizeHeight += SIZE_GAP_BIG;
+            
+            if (model.imgs.count > 0) { // 图片
+                sizeHeight += (SIZE_GAP_IMG + SIZE_IMAGE + SIZE_GAP_IMG);
+            }
+            sizeHeight += SIZE_GAP_BIG;
+            model.contentFrame = CGRectMake(0, 64, width, sizeHeight);
+        }
+        
+        // 2.计算 cell 的尺寸
+        {
+            NSInteger sizeHeight = 64;  // 顶部标题+副标题
+            sizeHeight += (model.contentFrame.size.height);
+            sizeHeight += 44;   // 底部评论+点赞按钮
+            model.totalFrame = CGRectMake(0, 0, kScreenWidth, sizeHeight);
+        }
+        
         [models addObject:model];
     }
     return models.copy;
@@ -138,6 +167,11 @@ static NSString *cellId = @"NewsCellId";
     cell.delegate = self;   // VC作为Cell视图的代理对象
     cell.model = model;
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NewsModel *model = [self.dataSource objectAtIndex:indexPath.row];
+    return model.totalFrame.size.height;
 }
 
 #pragma mark - NewsCellDelegate
@@ -250,8 +284,6 @@ static NSString *cellId = @"NewsCellId";
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.scrollsToTop = YES;
-        _tableView.estimatedRowHeight = 250;//预估高度
-        _tableView.rowHeight = UITableViewAutomaticDimension;
         [_tableView registerClass:[AsyncDrawNewsCell class] forCellReuseIdentifier:cellId];
         __weak typeof(self) weakSelf = self;
         [_tableView addPullToRefreshWithActionHandler:^{

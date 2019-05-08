@@ -36,6 +36,17 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, assign,getter=isLike)BOOL like;
 /** rowHeight */
 @property(nonatomic,assign)CGFloat rowHeight;
+/** sepcword */
+@property(nonatomic, copy)NSString *specialWord;
+/** link */
+@property(nonatomic, copy)NSString *link;
+/** textFrame 文本 frame */
+@property(nonatomic, assign)CGRect textFrame;
+/** contentFrame 内容 frame 包括文字上下的间隔,图片预览尺寸 */
+@property(nonatomic, assign)CGRect contentFrame;
+/** total frame */
+@property(nonatomic, assign)CGRect totalFrame;
+
 
 /// 添加关注
 - (void)addAttention:(void(^)(NSDictionary *json))callback;

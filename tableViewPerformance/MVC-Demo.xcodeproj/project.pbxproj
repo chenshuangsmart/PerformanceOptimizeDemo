@@ -14,6 +14,7 @@
 		40CD0A81225EC60A0089EC2F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 40CD0A80225EC60A0089EC2F /* AppDelegate.m */; };
 		40E2B7A2227FBFC900803C15 /* AsyncDrawNewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 40E2B7A1227FBFC900803C15 /* AsyncDrawNewsCell.m */; };
 		40E2B7A5227FBFF600803C15 /* AsyncDrawViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40E2B7A4227FBFF600803C15 /* AsyncDrawViewController.m */; };
+		40E2B7A82280505200803C15 /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 40E2B7A72280505200803C15 /* NSString+Additions.m */; };
 		8DD84B73E6D4165FAB6CB543 /* libPods-MVC-Demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 48CC69F2B3B3CDEDEC21CBAB /* libPods-MVC-Demo.a */; };
 		9323EC5E2260D33800247AD7 /* UIScrollView+SVInfiniteScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = 9323EC5A2260D33800247AD7 /* UIScrollView+SVInfiniteScrolling.m */; };
 		9323EC5F2260D33800247AD7 /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 9323EC5B2260D33800247AD7 /* UIScrollView+SVPullToRefresh.m */; };
@@ -55,6 +56,8 @@
 		40E2B7A1227FBFC900803C15 /* AsyncDrawNewsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AsyncDrawNewsCell.m; sourceTree = "<group>"; };
 		40E2B7A3227FBFF600803C15 /* AsyncDrawViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AsyncDrawViewController.h; sourceTree = "<group>"; };
 		40E2B7A4227FBFF600803C15 /* AsyncDrawViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AsyncDrawViewController.m; sourceTree = "<group>"; };
+		40E2B7A62280505200803C15 /* NSString+Additions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+Additions.h"; sourceTree = "<group>"; };
+		40E2B7A72280505200803C15 /* NSString+Additions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+Additions.m"; sourceTree = "<group>"; };
 		48CC69F2B3B3CDEDEC21CBAB /* libPods-MVC-Demo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MVC-Demo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9323EC592260D33800247AD7 /* SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVPullToRefresh.h; sourceTree = "<group>"; };
 		9323EC5A2260D33800247AD7 /* UIScrollView+SVInfiniteScrolling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVInfiniteScrolling.m"; sourceTree = "<group>"; };
@@ -186,6 +189,8 @@
 				93A25CEE22632C2400C9C389 /* UIView+Extension.m */,
 				4023F34B2266B0630001398C /* UILabel+Extension.h */,
 				4023F34C2266B0630001398C /* UILabel+Extension.m */,
+				40E2B7A62280505200803C15 /* NSString+Additions.h */,
+				40E2B7A72280505200803C15 /* NSString+Additions.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -382,6 +387,7 @@
 				93A25D0B22632C9800C9C389 /* main.m in Sources */,
 				40CD0A81225EC60A0089EC2F /* AppDelegate.m in Sources */,
 				93A25D0E22632CED00C9C389 /* HomeViewController.m in Sources */,
+				40E2B7A82280505200803C15 /* NSString+Additions.m in Sources */,
 				93C511BE2266264400B86678 /* CalculateNewsCell.m in Sources */,
 				40E2B7A5227FBFF600803C15 /* AsyncDrawViewController.m in Sources */,
 			);
