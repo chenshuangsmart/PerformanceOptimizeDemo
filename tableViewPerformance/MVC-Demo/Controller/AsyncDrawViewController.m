@@ -109,16 +109,16 @@ static NSString *cellId = @"NewsCellId";
         {
             NSString *content = [NSString stringWithFormat:@"%@: %@ %@",model.specialWord,model.content,model.link];
             float width = kScreenWidth - SIZE_GAP_LEFT * 2;
-            CGSize size = [content sizeWithConstrainedToWidth:width fromFont:FontWithSize(SIZE_FONT_SUBCONTENT) lineSpace:5];
-            NSInteger sizeHeight = size.height + 0.5;
-            model.textFrame = CGRectMake(SIZE_GAP_LEFT, SIZE_GAP_BIG, width, sizeHeight);
-            sizeHeight += SIZE_GAP_BIG;
+            CGSize size =  [content sizeWithConstrainedToWidth:width fromFont:FontWithSize(SIZE_FONT_SUBCONTENT) lineSpace:5];
+            NSInteger sizeHeight = size.height + .5;
+            model.textFrame = CGRectMake(SIZE_GAP_LEFT, SIZE_GAP_BIG + 64, width, sizeHeight);
+            sizeHeight += SIZE_GAP_BIG * 2;
             
             if (model.imgs.count > 0) { // 图片
                 sizeHeight += (SIZE_GAP_IMG + SIZE_IMAGE + SIZE_GAP_IMG);
             }
             sizeHeight += SIZE_GAP_BIG;
-            model.contentFrame = CGRectMake(0, 64, width, sizeHeight);
+            model.contentFrame = CGRectMake(0, 64, kScreenWidth, sizeHeight);
         }
         
         // 2.计算 cell 的尺寸
@@ -165,6 +165,7 @@ static NSString *cellId = @"NewsCellId";
     NewsModel *model = [self.dataSource objectAtIndex:indexPath.row];
     AsyncDrawNewsCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     cell.delegate = self;   // VC作为Cell视图的代理对象
+    [cell clear];
     cell.model = model;
     return cell;
 }

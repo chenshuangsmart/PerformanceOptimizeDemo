@@ -52,7 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface AsyncDrawNewsCell : UITableViewCell
 
 /** model */
-@property(nonatomic, strong)NewsModel *model;
+@property(nonatomic, weak)NewsModel *model;
 
 /** delegate */
 @property(nonatomic,weak)id<AsyncDrawNewsCellDelegate> delegate;
