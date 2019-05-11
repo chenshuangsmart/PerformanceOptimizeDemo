@@ -12,6 +12,7 @@
 #import "FPSViewer.h"
 #import "CalculateCellHeightViewController.h"
 #import "AsyncDrawViewController.h"
+#import "DelayLoadImgViewController.h"
 
 @interface HomeViewController ()
 /** debug */
@@ -99,6 +100,21 @@
         make.top.equalTo( calculCellHeightLbe.mas_bottom).offset(50);
         make.centerX.equalTo(self.view);
     }];
+    
+    // 异步绘制
+    UILabel * delayLoadImgLbe = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 44)];
+    delayLoadImgLbe.textColor = [UIColor blackColor];
+    delayLoadImgLbe.text = @"延时加载图片";
+    delayLoadImgLbe.textAlignment = NSTextAlignmentCenter;
+    delayLoadImgLbe.backgroundColor = [UIColor orangeColor];
+    [delayLoadImgLbe onTap:self action:@selector(tapDelayLoadImgLbe)];
+    [self.view addSubview:delayLoadImgLbe];
+    
+    [delayLoadImgLbe mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(delayLoadImgLbe.size);
+        make.top.equalTo( asyncDrawLbe.mas_bottom).offset(50);
+        make.centerX.equalTo(self.view);
+    }];
 }
 
 #pragma mark - action
@@ -121,6 +137,11 @@
 - (void)tapAsyncDrawLbe {
     AsyncDrawViewController *vc = [[AsyncDrawViewController alloc] init];
      [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)tapDelayLoadImgLbe {
+    DelayLoadImgViewController *vc = [[DelayLoadImgViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - test
