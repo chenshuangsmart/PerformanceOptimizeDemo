@@ -13,6 +13,7 @@
 #import "CalculateCellHeightViewController.h"
 #import "AsyncDrawViewController.h"
 #import "DelayLoadImgViewController.h"
+#import "LayoutTestViewController.h"
 
 @interface HomeViewController ()
 /** debug */
@@ -115,6 +116,21 @@
         make.top.equalTo( asyncDrawLbe.mas_bottom).offset(50);
         make.centerX.equalTo(self.view);
     }];
+    
+    // 约束布局测试
+    UILabel *layoutTestLbe = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 44)];
+    layoutTestLbe.textColor = [UIColor blackColor];
+    layoutTestLbe.text = @"约束布局测试";
+    layoutTestLbe.textAlignment = NSTextAlignmentCenter;
+    layoutTestLbe.backgroundColor = [UIColor orangeColor];
+    [layoutTestLbe onTap:self action:@selector(tapLayoutTestLbe)];
+    [self.view addSubview:layoutTestLbe];
+    
+    [layoutTestLbe mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(layoutTestLbe.size);
+        make.top.equalTo( delayLoadImgLbe.mas_bottom).offset(50);
+        make.centerX.equalTo(self.view);
+    }];
 }
 
 #pragma mark - action
@@ -141,6 +157,11 @@
 
 - (void)tapDelayLoadImgLbe {
     DelayLoadImgViewController *vc = [[DelayLoadImgViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)tapLayoutTestLbe {
+    LayoutTestViewController *vc = [[LayoutTestViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

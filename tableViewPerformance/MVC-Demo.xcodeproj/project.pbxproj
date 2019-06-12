@@ -13,6 +13,8 @@
 		4023F34D2266B0630001398C /* UILabel+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4023F34C2266B0630001398C /* UILabel+Extension.m */; };
 		402708B5228669D100032FE3 /* DelayLoadImgViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 402708B4228669D100032FE3 /* DelayLoadImgViewController.m */; };
 		402708B82286747100032FE3 /* DelayLoadImgCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 402708B72286747100032FE3 /* DelayLoadImgCell.m */; };
+		402D5A9022B0DAB700DD3181 /* LayoutTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 402D5A8F22B0DAB700DD3181 /* LayoutTestViewController.m */; };
+		402D5A9322B0DF1400DD3181 /* LayoutTestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 402D5A9222B0DF1400DD3181 /* LayoutTestView.m */; };
 		40CD0A81225EC60A0089EC2F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 40CD0A80225EC60A0089EC2F /* AppDelegate.m */; };
 		40E2B7A2227FBFC900803C15 /* AsyncDrawNewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 40E2B7A1227FBFC900803C15 /* AsyncDrawNewsCell.m */; };
 		40E2B7A5227FBFF600803C15 /* AsyncDrawViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40E2B7A4227FBFF600803C15 /* AsyncDrawViewController.m */; };
@@ -55,6 +57,10 @@
 		402708B4228669D100032FE3 /* DelayLoadImgViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DelayLoadImgViewController.m; sourceTree = "<group>"; };
 		402708B62286747100032FE3 /* DelayLoadImgCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DelayLoadImgCell.h; sourceTree = "<group>"; };
 		402708B72286747100032FE3 /* DelayLoadImgCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DelayLoadImgCell.m; sourceTree = "<group>"; };
+		402D5A8E22B0DAB700DD3181 /* LayoutTestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LayoutTestViewController.h; sourceTree = "<group>"; };
+		402D5A8F22B0DAB700DD3181 /* LayoutTestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LayoutTestViewController.m; sourceTree = "<group>"; };
+		402D5A9122B0DF1400DD3181 /* LayoutTestView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LayoutTestView.h; sourceTree = "<group>"; };
+		402D5A9222B0DF1400DD3181 /* LayoutTestView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LayoutTestView.m; sourceTree = "<group>"; };
 		40CD0A7C225EC60A0089EC2F /* MVC-Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MVC-Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		40CD0A7F225EC60A0089EC2F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		40CD0A80225EC60A0089EC2F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -219,6 +225,8 @@
 				40E2B7A4227FBFF600803C15 /* AsyncDrawViewController.m */,
 				402708B3228669D100032FE3 /* DelayLoadImgViewController.h */,
 				402708B4228669D100032FE3 /* DelayLoadImgViewController.m */,
+				402D5A8E22B0DAB700DD3181 /* LayoutTestViewController.h */,
+				402D5A8F22B0DAB700DD3181 /* LayoutTestViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -251,6 +259,8 @@
 				40E2B7E12282F4C500803C15 /* VVeboLabel.m */,
 				402708B62286747100032FE3 /* DelayLoadImgCell.h */,
 				402708B72286747100032FE3 /* DelayLoadImgCell.m */,
+				402D5A9122B0DF1400DD3181 /* LayoutTestView.h */,
+				402D5A9222B0DF1400DD3181 /* LayoutTestView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -386,6 +396,7 @@
 				93A25D0022632C3200C9C389 /* NewsActionView.m in Sources */,
 				401F478F227E6A0900A18F4D /* NeedLoadNewsCell.m in Sources */,
 				93A25CF522632C2400C9C389 /* ViewController.m in Sources */,
+				402D5A9322B0DF1400DD3181 /* LayoutTestView.m in Sources */,
 				93A25CF322632C2400C9C389 /* FPSHandler.m in Sources */,
 				4023F34A226565200001398C /* CalculateCellHeightViewController.m in Sources */,
 				4023F34D2266B0630001398C /* UILabel+Extension.m in Sources */,
@@ -407,6 +418,7 @@
 				93A25D0E22632CED00C9C389 /* HomeViewController.m in Sources */,
 				40E2B7A82280505200803C15 /* NSString+Additions.m in Sources */,
 				93C511BE2266264400B86678 /* CalculateNewsCell.m in Sources */,
+				402D5A9022B0DAB700DD3181 /* LayoutTestViewController.m in Sources */,
 				40E2B7A5227FBFF600803C15 /* AsyncDrawViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
